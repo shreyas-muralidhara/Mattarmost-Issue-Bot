@@ -1,4 +1,4 @@
-# Issue Bot - No Issues with Issue Bot 
+# Design Milestone 
 Problem Statement:
 ----------
 Github is the most popular version control used in Software development lifecycle management.
@@ -68,3 +68,6 @@ Use Case: Stale issues alerts to all team members.
 
 4. Alternative Flows
   [E1] All the collaborators except for the owner of the issue have unsubscribed from the issue.
+  
+  
+  
