@@ -1,5 +1,4 @@
 # Issue Bot - No Issues with Issue Bot 
-----------
 Our project ............
 
 Milestone:
