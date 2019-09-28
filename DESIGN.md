@@ -90,7 +90,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
 #### High Level Design
 
 Below diagram displays the high level overview of architectural design - Issue Bot:
-![Image Pasted at 2019-9-27 13-01](https://media.github.ncsu.edu/user/10687/files/7c992780-e161-11e9-8809-5423a0aa150f)
+![Image Pasted at 2019-9-27 17-35](https://media.github.ncsu.edu/user/10687/files/f1209600-e162-11e9-9e42-16e4dcd60418)
 
 Our Issue bot interacts with following third party services:  
   GitHub  
@@ -101,5 +101,33 @@ Issue Bot would interact with users through its own Mattermost account.
 
 #### Architectural Compnents
 
+This project involves the usage of following components:  
+![Image Pasted at 2019-9-27 18-34](https://media.github.ncsu.edu/user/10687/files/963a6f00-e161-11e9-8f64-e72cb40b0aae)
+
+**Github**- GitHub provides hosting for software development version control using Git.  It provides access control and several collaboration features such as bug tracking, feature requests, task management, and wikis for every project.  Our bot is going to communicate with Github using Github REST API calls.  
+**Mattermost**- Mattermost is an open-source, self-hostable online chat service. It is designed as an internal chat for organisations and companies. We will be deploying our bot on Mattermost.  
+**IssueBot**- Our IssueBot is going to be the central medium of communication between the user on mattermost and github. User will make requests to the bot on mattermost and the bot will act accordingly. Our bot helps automate the manual tasks for the user.  
+**User**- User is going to communicate with the bot through Mattermost. User will request and get response for his activities.  
+**Github API Manager**-  Git API Manager is responsible to connect GitHub with the bot. It interacts with GitHub via Rest APIs to accomplish tasks.  
+**Mattermost API Manager**- Mattermost  API Manager helps IssueBot and users to communicate effectively. It is used to send and receive data between the Bot App server and users. Bot uses a separate id to communicate on Mattermost.  
+**Parser**- When the user types the message we will use a regular expression to grab the intent of the message. In the future, we may add a semantic parser to get more information.  
+**Event Manager**- Event manager controls the intervals at which the bot notifies the user of any periodic events or alerts.  
+**Bot Engine**- We are using Node.js server as the engine. It comes with an http module that provides a set of functions and classes for building a HTTP server.  
+
+#### Constraints:  
+* Issue Bot makes API calls to GitHub and Mattermost. Currently GitHub and Mattermost API are statically incorporated into the functions. Any changes made to the GitHub and Mattermost API will be need to be manually updated in the bot.  
+* The Issue Bot can only use GitHub for version control.  
+* Currently, the issue bot extracts data from user messages using regular expressions. This can be improved upon by integrating with natural language processing API’s to make the bot more robust.
+* Issue Bot can only interact with one user at a time. Handling Pull requests and stale issues (use case 2 &3) need individual interaction. However, comments of multiple users (use case 1) can be pushed at once.
+* The Issue Bot assumes that the user is working only on a single Repository. That is, all members of a team are working on a single project.
+
+#### Additional patterns
+##### Blackboard:
+Our Issue Bot can be designed using the Blackboard pattern. The Issue bot interacts with clients who act as knowledge sources and any request from the client will be processed by the issue bot which performs corresponding operation on Github.
+
+![blackboard](https://media.github.ncsu.edu/user/10687/files/cc77ee80-e161-11e9-87c4-0f346ea45fe6)
+
+##### Event Systems:
+Our bot architecture facilitates both explicit and implicit invocation. As an example of implicit invocation, the bot keeps track of conversation on an issue for some time and ask the user if it can push the messages as comments to that issue in git. And as an example for explicit invocation the bot displays the list of pull requests when requested by the user.
 
 
