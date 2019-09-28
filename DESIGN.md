@@ -24,6 +24,7 @@ Bridging the gap between github and mattermost would make project management mor
 
 Our Issue Bot is a response to events bot. Our bot falls into the category of chat- Dev Bot since, it acts as a mediator between the people  by sending notifications.
 
+## Use Cases
 ```
 USECASE 1: Push comments related to an issue to the git.
 1. Pre-conditions:
@@ -79,7 +80,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
 ![wireframe4](https://media.github.ncsu.edu/user/10687/files/5c1c9d80-e160-11e9-9369-ebb3f26c4573)	
 	
 * Stale issues alerts to all team members.
-![wireframe3](https://media.github.ncsu.edu/user/10687/files/368f9400-e160-11e9-9e9b-d647778b19d8)
+![wireframe3](https://media.github.ncsu.edu/user/10687/files/05ff2880-e167-11e9-9405-2a37fe9acf82)
 
 #### Storyboard
    ![Image Pasted at 2019-9-26 14-44](https://media.github.ncsu.edu/user/10687/files/2f1cba80-e161-11e9-9cb3-653012a12ba7)
@@ -89,7 +90,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
 
 #### High Level Design
 
-Below diagram displays the high level overview of architectural design - Issue Bot:
+Below diagram displays the high level overview - Issue Bot:
 ![Image Pasted at 2019-9-27 17-35](https://media.github.ncsu.edu/user/10687/files/f1209600-e162-11e9-9e42-16e4dcd60418)
 
 Our Issue bot interacts with following third party services:  
@@ -121,13 +122,11 @@ This project involves the usage of following components:
 * Issue Bot can only interact with one user at a time. Handling Pull requests and stale issues (use case 2 &3) need individual interaction. However, comments of multiple users (use case 1) can be pushed at once.
 * The Issue Bot assumes that the user is working only on a single Repository. That is, all members of a team are working on a single project.
 
-#### Additional patterns
+#### Additional Design Patterns
 ##### Blackboard:
 Our Issue Bot can be designed using the Blackboard pattern. The Issue bot interacts with clients who act as knowledge sources and any request from the client will be processed by the issue bot which performs corresponding operation on Github.
 
-![blackboard](https://media.github.ncsu.edu/user/10687/files/cc77ee80-e161-11e9-87c4-0f346ea45fe6)
+![blackboard](https://media.github.ncsu.edu/user/10687/files/37c3bf80-e166-11e9-9b0b-c410ef1e7103)
 
 ##### Event Systems:
 Our bot architecture facilitates both explicit and implicit invocation. As an example of implicit invocation, the bot keeps track of conversation on an issue for some time and ask the user if it can push the messages as comments to that issue in git. And as an example for explicit invocation the bot displays the list of pull requests when requested by the user.
-
-
