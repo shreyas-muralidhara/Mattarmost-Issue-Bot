@@ -1,5 +1,5 @@
 # Issue Bot - No Issues with Issue Bot 
-Our project ............
+Our project is an IssueBot which is hosted on Mattermost platform. It intends to assist the users in issue maintenance adding ease to their work in accomplishing their goal.
 
 Milestone:
 ---------
