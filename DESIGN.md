@@ -13,12 +13,14 @@ The user should have the independence of letting the bot know on what notificati
 
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* Create Issues using mattermost.
-* View  Issues on mattermost by filtering on attributes - tags, authors,milestones etc. 
-* Tracking messages in mattermost tagged with an issue ID by adding it as a new comment in git. 
+* Priority ordering of Issues based on user specification
+  Having multiple tags makes the issue list much harder to browse which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority of the issue based on a sentimental   score.   
+* Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.
+  A collaborator of the repository can request the entire list of pull requests. If the user rejects the pull request then the bot         creates a new issue linked to the pull request with the reason for rejecting the request as specified by the user.
 * Escalate stale issues to other team members.
-* Send notifications regarding the developments in the issue.
-* User can Subscribe/Unsubscribe to notifications for concerned issues.
+  The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
+* Push any comments related to an issue to the git.
+  Whenever a user types a message tagged with an issue id then the bot will push those messages as comments to that particular issue in   git.
 
 Bridging the gap between github and mattermost would make project management more efficient. Having these features in our bot helps enhance coordination within the team as a user can easily perform certain tasks from mattermost without having to use the git page and also it helps the developers avoid keeping track of the issues. 
 
