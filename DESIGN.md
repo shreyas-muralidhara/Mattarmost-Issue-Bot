@@ -13,14 +13,12 @@ The user should have the independence of letting the bot know on what notificati
 
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* **Priority ordering of Issues based on user specification**  
-  Having multiple tags makes the issue list much harder to browse which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority of the issue based on a sentimental   score.   
-* **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
-  A collaborator of the repository can request the entire list of pull requests. If the user rejects the pull request then the bot         creates a new issue linked to the pull request with the reason for rejecting the request as specified by the user.
+* **Priority ordering of Issues based on a sentimental score. **  
+  Having multiple tags makes the issue list much harder to browse, which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority based on the issue label attributes such- **issuetype**, **issuepriority** and **issuestatus** and generate a sentimental score. On user request the bot displays the issues based on the priority assigned. 
 * **Escalate stale issues to other team members.**  
   The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
-* **Push any comments related to an issue to the git.**  
-  Whenever a user types a message tagged with an issue id then the bot will push those messages as comments to that particular issue in   git.
+* **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
+  A collaborator of the repository can request the entire list of pull requests. If the user rejects the pull request then the bot         creates a new issue linked to the pull request with the reason for rejecting the request as specified by the user.
 
 Bridging the gap between github and mattermost would make project management more efficient. Having these features in our bot helps enhance coordination within the team as a user can easily perform certain tasks from mattermost without having to use the git page and also it helps the developers avoid keeping track of the issues. 
 
@@ -28,36 +26,20 @@ Our Issue Bot is a response to events bot. Our bot falls into the category of ch
 
 ## Use Cases
 ```
-USECASE 1: Push comments related to an issue to the git.
+USECASE 1: Priority ordering of Issues based on a sentimental score.
 1. Pre-conditions:
-   The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository. 
+   The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository.
+   For all existing open issues, the attribute labels- issuetype, issuepriority and issuestatus needs to be specified.
 2. Main Flow: 
-   When user types a message tagged with an issue id then the bot will push the messages as comments to that issue in git.
+   When user requests for open issues, the bot displays the issues in prioritised order based on the label attribute sentimental score.  
 3. Subflows:
-   [S1]- The user would type a message tagged with @issue_id.  
-   [S2]- The bot will push the message as comment to the issue and return a job status of pass/fail.  
+   [S1]- The user would request open issues in the repository.
+   [S2]- The bot will get the issues and determine its sentimental score based on the label attributes.  
+   [S3]- The bot then displays the issues based on the priority. If the labels are missing, it assigns a default priority and displays it at the end of the list.
 4. Alternative Flow: 
-   [E1]- If the issue has already been closed, comments cannot be added to the issue.
-```
-
-```
-USECASE 2: Creating an issue linked to the pull request
-1. Pre-conditions:
-   The bot needs to be subscribed to the repository. And the user should be the collaborator/owner of the repository.There should be pull requests initialized in the git repository.	  
-2. Main Flow:
-   The collaborator of the repository can request the entire list of pull requests which will be displayed by the bot in the following format [Pull request  current status   Action required]. The user can either accept or reject the pull request. If the user rejects the 
-   pull request then the bot creates a new issue linked to the pull request with the reason for rejecting the request as specified by the user.
-3. Subflows:
-   [S1] The collaborator can request to view the pull requests with a message like  @pull_request @bot.  
-   [S2] The bot will display the list of pull requests and the user is given an option to review authorized requests.  
-   [S3] If the pull request is approved from mattermost it would be approved.  
-   [S4] If the pull request is rejected then the bot opens a message bar where the user can type a message which would be used to create a new issue linked to the pull request.                     
-4. Alternative Flow: 
-   [E1]- If the pull request has been merged with the master and closed. 
-```
-
-```
-USECASE 3: Stale issues alerts to all team members.
+   [E1]- The user cannot change the label attributes once the issue has been created.
+   ```
+USECASE 2: Stale issues alerts to all team members.
 1. Pre-conditions:
    The bot needs to have the access to the repository. There must be some issues existing in the repository. 
 2. Main Flow:
@@ -69,6 +51,25 @@ USECASE 3: Stale issues alerts to all team members.
 4. Alternative Flows:
    [E1] All the collaborators except for the owner of the issue have unsubscribed from the issue.
  ``` 
+
+```
+USECASE 3: Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.
+1. Pre-conditions:
+   The bot needs to be subscribed to the repository. And the user should be the collaborator/owner of the repository.There should be pull requests initialized in the git repository.	  
+2. Main Flow:
+   The collaborator of the repository can request the entire list of pull requests which will be displayed by the bot in the following format [Pull request  current status   Action required]. The user can either accept or reject the pull requests. If the user rejects the 
+   pull request then the bot creates a new issue linked to the pull request with the reason for rejection and request the issue attribute from the user. 
+3. Subflows:
+   [S1] The collaborator can request to view the pull requests with a message like  @pull_request @bot.  
+   [S2] The bot will display the list of pull requests and the user is given an option to review authorized requests.  
+   [S3] If the pull request is approved from mattermost it would be approved.  
+   [S4] If the pull request is rejected then the bot opens a message bar where the user can type a message which would be used to create a new issue linked to the pull request. The bot will then ask for the issue attributes selection.
+4. Alternative Flow: 
+   [E1]- If the pull request has been merged with the master and closed. 
+```
+
+```
+
   
 ## Design Sketches
 
