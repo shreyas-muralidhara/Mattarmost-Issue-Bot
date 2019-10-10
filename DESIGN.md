@@ -13,8 +13,9 @@ The user should have the independence of letting the bot know on what notificati
 
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* **Priority ordering of Issues based on a sentimental score.**  
-  Having multiple tags makes the issue list much harder to browse, which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority based on the issue label attributes   such- **issuetype**, **issuepriority** and **issuestatus** and generate a sentimental score. On user request the bot displays the        issues based on the priority assigned. 
+* **Priority ordering of Issues based on a sentimental score.**   
+  Issues on github are handled by assigning multiple labels. But when there are many issues, then collaborator needs to figure out which one takes the priority. Manually processing issues based on labels is easier for a short list. This is not the case in most repositories that are open to community of developers. This is where issue bot comes to the rescue by prioritizing the issues and tracking them periodically.  
+  Bot takes into consideration the label attributes- type, priority and status. Then generates a sentimental score for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution
 * **Escalate stale issues to other team members.**  
   The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
 * **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
@@ -31,13 +32,14 @@ USECASE 1: Priority ordering of Issues based on a sentimental score.
    The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository.
    For all existing open issues, the attribute labels- issuetype, issuepriority and issuestatus needs to be specified.
 2. Main Flow: 
-   When user requests for open issues, the bot displays the issues in prioritised order based on the label attribute sentimental score.  
+   When user requests for open issues, the bot displays the issues in prioritised order based on the label attribute sentimental score and also allows the user to change the label attributes. 
 3. Subflows:
    [S1]- The user would request open issues in the repository.
    [S2]- The bot will get the issues and determine its sentimental score based on the label attributes.  
    [S3]- The bot then displays the issues based on the priority. If the labels are missing, it assigns a default priority and displays it at the end of the list.
+   [S4]- The user can request to update the attributes of a specific issue. 
 4. Alternative Flow: 
-   [E1]- The user cannot change the label attributes once the issue has been created.
+   [E1]- If the labels for an issue are missing then sentimental score cannot be generated.
    ```
  ```  
 USECASE 2: Stale issues alerts to all team members.
@@ -77,17 +79,19 @@ USECASE 3: Automatically create an issue when a pull request is declined and add
 #### Wireframes
 The following screens display the mock up of **issue bot**, for each of the use case:
 
-* Push comments related to an issue to the git.
-![wireframe2](https://media.github.ncsu.edu/user/10687/files/b0c01880-e160-11e9-8688-a5e926b967ca)
+* Priority ordering of Issues based on a sentimental score.
+  ![usecase1](https://media.github.ncsu.edu/user/10687/files/5f824100-ebc4-11e9-84b4-465f000392dc)
+
+* Stale issues alerts to all team members.
+  ![wireframe3](https://media.github.ncsu.edu/user/10687/files/05ff2880-e167-11e9-9405-2a37fe9acf82)
 	
 * Creating an issue linked to the pull request
-![wireframe4](https://media.github.ncsu.edu/user/10687/files/5c1c9d80-e160-11e9-9369-ebb3f26c4573)	
-	
-* Stale issues alerts to all team members.
-![wireframe3](https://media.github.ncsu.edu/user/10687/files/05ff2880-e167-11e9-9405-2a37fe9acf82)
-
+  ![usecase3](https://media.github.ncsu.edu/user/10687/files/614c0480-ebc4-11e9-950d-57bd8b2fd720)
+  
 #### Storyboard
-   ![Image Pasted at 2019-9-26 14-44](https://media.github.ncsu.edu/user/10687/files/2f1cba80-e161-11e9-9cb3-653012a12ba7)
+   ![Storyboard](https://media.github.ncsu.edu/user/10687/files/5db87d80-ebc4-11e9-8cbc-d894369a0fae)
+
+
 
 
 ## Architecture Design
@@ -107,7 +111,7 @@ Issue Bot would interact with users through its own Mattermost account.
 #### Architectural Compnents
 
 This project involves the usage of following components:  
-![Image Pasted at 2019-9-27 18-34](https://media.github.ncsu.edu/user/10687/files/963a6f00-e161-11e9-8f64-e72cb40b0aae)
+![Architecture](https://media.github.ncsu.edu/user/10687/files/83468680-ebc6-11e9-8777-cd501a760d2b)
 
 **Github**- GitHub provides hosting for software development version control using Git.  It provides access control and several collaboration features such as bug tracking, feature requests, task management, and wikis for every project.  Our bot is going to communicate with Github using Github REST API calls.  
 **Mattermost**- Mattermost is an open-source, self-hostable online chat service. It is designed as an internal chat for organisations and companies. We will be deploying our bot on Mattermost.  
@@ -118,12 +122,13 @@ This project involves the usage of following components:
 **Parser**- When the user types the message we will use a regular expression to grab the intent of the message. In the future, we may add a semantic parser to get more information.  
 **Event Manager**- Event manager controls the intervals at which the bot notifies the user of any periodic events or alerts.  
 **Bot Engine**- We are using Node.js server as the engine. It comes with an http module that provides a set of functions and classes for building a HTTP server.  
+**Sentimental Analyzer**-Text processing framework to analyse Natural Language. It is focused on classification and sentiment analysis of issue labels.
 
 #### Constraints:  
 * Issue Bot makes API calls to GitHub and Mattermost. Currently GitHub and Mattermost API are statically incorporated into the functions. Any changes made to the GitHub and Mattermost API will be need to be manually updated in the bot.  
 * The Issue Bot can only use GitHub for version control.  
 * Currently, the issue bot extracts data from user messages using regular expressions. This can be improved upon by integrating with natural language processing API’s to make the bot more robust.
-* Issue Bot can only interact with one user at a time. Handling Pull requests and stale issues (use case 2 &3) need individual interaction. However, comments of multiple users (use case 1) can be pushed at once.
+* Issue Bot can only interact with one user at a time.
 * The Issue Bot assumes that the user is working only on a single Repository. That is, all members of a team are working on a single project.
 
 #### Additional Design Patterns
