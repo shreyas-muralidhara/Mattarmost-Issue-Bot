@@ -13,8 +13,8 @@ The user should have the independence of letting the bot know on what notificati
 
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* **Priority ordering of Issues based on a sentimental score. **  
-  Having multiple tags makes the issue list much harder to browse, which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority based on the issue label attributes such- **issuetype**, **issuepriority** and **issuestatus** and generate a sentimental score. On user request the bot displays the issues based on the priority assigned. 
+* **Priority ordering of Issues based on a sentimental score.**  
+  Having multiple tags makes the issue list much harder to browse, which decreases readability as user has to decide which set of tags     are to be considered to prioritize. So when a new issue is created the bot determines the priority based on the issue label attributes   such- **issuetype**, **issuepriority** and **issuestatus** and generate a sentimental score. On user request the bot displays the        issues based on the priority assigned. 
 * **Escalate stale issues to other team members.**  
   The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
 * **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
@@ -39,6 +39,7 @@ USECASE 1: Priority ordering of Issues based on a sentimental score.
 4. Alternative Flow: 
    [E1]- The user cannot change the label attributes once the issue has been created.
    ```
+ ```  
 USECASE 2: Stale issues alerts to all team members.
 1. Pre-conditions:
    The bot needs to have the access to the repository. There must be some issues existing in the repository. 
@@ -68,7 +69,7 @@ USECASE 3: Automatically create an issue when a pull request is declined and add
    [E1]- If the pull request has been merged with the master and closed. 
 ```
 
-```
+
 
   
 ## Design Sketches
