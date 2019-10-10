@@ -15,7 +15,7 @@ The user should have the independence of letting the bot know on what notificati
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
 * **Priority ordering of Issues based on a sentimental score.**   
   Issues on github are handled by assigning multiple labels. But when there are many issues, then collaborator needs to figure out which one takes the priority. Manually processing issues based on labels is easier for a short list. This is not the case in most repositories that are open to community of developers. This is where issue bot comes to the rescue by prioritizing the issues and tracking them periodically.  
-  Bot takes into consideration the label attributes- type, priority and status. Then generates a sentimental score for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution
+  Bot takes into consideration the label attributes- type, priority and status. Then generates a sentimental score for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution.
 * **Escalate stale issues to other team members.**  
   The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
 * **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
@@ -85,7 +85,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
 * Stale issues alerts to all team members.
   ![wireframe3](https://media.github.ncsu.edu/user/10687/files/05ff2880-e167-11e9-9405-2a37fe9acf82)
 	
-* Creating an issue linked to the pull request
+* Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.
   ![usecase3](https://media.github.ncsu.edu/user/10687/files/614c0480-ebc4-11e9-950d-57bd8b2fd720)
   
 #### Storyboard
