@@ -13,13 +13,14 @@ The user should have the independence of letting the bot know on what notificati
 
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* **Priority ordering of Issues based on a sentimental score.**   
+* **Priority ordering of Issues based on a ranking and momentum.**   
   Issues on github are handled by assigning multiple labels. But when there are many issues, then collaborator needs to figure out which one takes the priority. Manually processing issues based on labels is easier for a short list. This is not the case in most repositories that are open to community of developers. This is where issue bot comes to the rescue by prioritizing the issues and tracking them periodically.  
-  Bot takes into consideration the label attributes- type, priority and status. Then generates a sentimental score for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution.
+  Bot takes into consideration the time of creation,label attributes- type, priority and status. Then generates a priority rank for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution.
 * **Escalate stale issues to other team members.**  
   The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
-* **Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.**  
-  A collaborator of the repository can request the entire list of pull requests. If the user rejects the pull request then the bot         creates a new issue linked to the pull request with the reason for rejecting the request as specified by the user.
+* **Agile planning with Github Issues.**  
+  Based on an individual's skill and experience, each team member can resolve the issues accordingly in a sprint. Agile manager needs to estimate the effort required for completion of issue before sprint. Our issue bot can abate the task of Agile manager and help in making an informed decision, by displaying the existing workload for each member.           
+  At backend, Bot assigns level of difficulty-hard, medium, easy. It then calculates **performance metric** for each team member, based on the weighted average of issues completed in past 2 sprints. Additionally, bot computes **workload metric** by member based on his weight of both existing incomplete issues and the new issue. Bot displays the potential team members who can work on issue, only if their performance metric is greater than  existing workload and new issue weight.
 
 Bridging the gap between github and mattermost would make project management more efficient. Having these features in our bot helps enhance coordination within the team as a user can easily perform certain tasks from mattermost without having to use the git page and also it helps the developers avoid keeping track of the issues. 
 
