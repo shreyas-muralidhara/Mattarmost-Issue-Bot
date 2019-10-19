@@ -86,8 +86,8 @@ The following screens display the mock up of **issue bot**, for each of the use 
 * Stale issues alerts to all team members.
   ![wireframe3](https://media.github.ncsu.edu/user/10687/files/05ff2880-e167-11e9-9405-2a37fe9acf82)
 	
-* Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.
-  ![usecase3](https://media.github.ncsu.edu/user/10687/files/614c0480-ebc4-11e9-950d-57bd8b2fd720)
+* Agile planning with Github Issues.
+  ![Use case 3](https://media.github.ncsu.edu/user/10687/files/0f842980-f217-11e9-8993-6dbe5a302c76)
   
 #### Storyboard
    ![Storyboard](https://media.github.ncsu.edu/user/10687/files/5db87d80-ebc4-11e9-8cbc-d894369a0fae)
