@@ -1,0 +1,19 @@
+{
+  "name": "IssueBOT",
+  "version": "0.0.1",
+  "description": "maintains issue life cycle",
+  "main": "index.js",
+  "author": "Team 11",
+  "license": "ISC",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^6.2.1",
+    "nock": "^11.1.0",
+    "underscore": "^1.6.0"
+  },
+  "dependencies": {
+    "forecast.io": "0.0.11",
+    "got": "^9.6.0",
+    "mattermost-client": "^6.1.2"
+  }
+}
