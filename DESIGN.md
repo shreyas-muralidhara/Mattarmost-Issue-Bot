@@ -61,11 +61,11 @@ USECASE 3: Agile planning with Github Issues.
 1. Pre-conditions: 
    The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository.
 2. Main Flow: 
-   Whenever a new issue is created, the bot assigns a tag to the issue viz. easy, medium and difficult. The bot then calculates     	    performance metric for each team member, based on the weighted average of issues completed in past 2 sprints. Then it computes          workload    metric per team member based on his weight of both existing incomplete issues and the new issue. The bot will then          display the potential team members who can work on the issue, only if their performance metric is greater than existing workload and    new issue weight.
+   Whenever a new issue is created, the bot assigns a tag to the issue viz. easy, medium and difficult. The bot then calculates performance metric for each team member, based on the weighted average of issues completed in past 2 sprints. Then it computes workload metric per team member based on his weight of both existing incomplete issues and the new issue. The bot will then display the potential team members who can work on the issue, only if their performance metric is greater than existing workload metric.
 3. Subflows: 
    [S1]- When a new issue is created, the bot assigns a tag to the issue viz. easy, medium and difficult. 
    [S2]- The bot then calculates performance metric for each team member, based on the weighted average of issues completed in past 2 sprints. 
-   [S3]- Then it computes workload metric per team member based on his weight of both existing incomplete issues and the new issue.        [S4]- The bot will then display the potential team members who can work on the issue, only if their performance metric is greater than existing workload and new issue weight.
+   [S3]- Then it computes workload metric per team member based on his weight of both existing incomplete issues and the new issue.        [S4]- The bot will then display the potential team members who can work on the issue, only if their performance metric is greater than existing workload.
 4. Alternative Flow: 
    [E1]- If the labels for an issue are missing then agile planning cannot be done.
 ```
