@@ -47,7 +47,7 @@ USECASE 2: Stale issues alerts to all team members.
 1. Pre-conditions:
    The bot needs to have the access to the repository. There must be some issues existing in the repository. 
 2. Main Flow:
-   Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. If the member has unsubscribed from the issue, he will not be notified. The owner of the issue can then reassign the stale issue to some other team members.
+   Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. If the member has      unsubscribed from the issue, he will not be notified. The owner of the issue can then reassign the stale issue to some other team        members.
 3. Subflows:
    [S1] Bot will notify the author and the collaborators of the repo of any stale issues.  
    [S2] If some member has unsubscribed from the issue, he will not be notified.  
@@ -57,19 +57,16 @@ USECASE 2: Stale issues alerts to all team members.
  ``` 
 
 ```
-USECASE 3: Automatically create an issue when a pull request is declined and add the reason for decline as Issue description.
-1. Pre-conditions:
-   The bot needs to be subscribed to the repository. And the user should be the collaborator/owner of the repository.There should be pull requests initialized in the git repository.	  
-2. Main Flow:
-   The collaborator of the repository can request the entire list of pull requests which will be displayed by the bot in the following format [Pull request  current status   Action required]. The user can either accept or reject the pull requests. If the user rejects the 
-   pull request then the bot creates a new issue linked to the pull request with the reason for rejection and request the issue attribute from the user. 
-3. Subflows:
-   [S1] The collaborator can request to view the pull requests with a message like  @pull_request @bot.  
-   [S2] The bot will display the list of pull requests and the user is given an option to review authorized requests.  
-   [S3] If the pull request is approved from mattermost it would be approved.  
-   [S4] If the pull request is rejected then the bot opens a message bar where the user can type a message which would be used to create a new issue linked to the pull request. The bot will then ask for the issue attributes selection.
+USECASE 3: Agile planning with Github Issues.
+1. Pre-conditions: The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository.
+2. Main Flow: 
+Whenever a new issue is created, the bot assigns a tag to the issue viz. easy, medium and difficult. The bot then calculates performance metric for each team member, based on the weighted average of issues completed in past 2 sprints. Then it computes workload metric per team member based on his weight of both existing incomplete issues and the new issue. The bot will then display the potential team members who can work on the issue, only if their performance metric is greater than existing workload and new issue weight.
+3. Subflows: 
+   [S1]- When a new issue is created, the bot assigns a tag to the issue viz. easy, medium and difficult. 
+   [S2]- The bot then calculates performance metric for each team member, based on the weighted average of issues completed in past 2 sprints. 
+   [S3]- Then it computes workload metric per team member based on his weight of both existing incomplete issues and the new issue.        [S4]- The bot will then display the potential team members who can work on the issue, only if their performance metric is greater than existing workload and new issue weight.
 4. Alternative Flow: 
-   [E1]- If the pull request has been merged with the master and closed. 
+   [E1]- If the labels for an issue are missing then agile planning cannot be done.
 ```
 
 
