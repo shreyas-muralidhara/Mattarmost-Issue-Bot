@@ -89,8 +89,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
   ![Use case 3](https://media.github.ncsu.edu/user/10687/files/0f842980-f217-11e9-8993-6dbe5a302c76)
   
 #### Storyboard
-   ![Storyboard](https://media.github.ncsu.edu/user/10687/files/5db87d80-ebc4-11e9-8cbc-d894369a0fae)
-
+   ![Storyboard](https://media.github.ncsu.edu/user/13106/files/0cec1600-f376-11e9-84b2-4d756378082f)
 
 
 
