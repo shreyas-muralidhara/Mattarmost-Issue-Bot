@@ -2,6 +2,7 @@ const got  = require('got');
 const token = "token " + "YOUR TOKEN";
 const urlRoot = "https://api.github.com";
 
+
 async function getIssuesSince(owner, repo) {
 	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues";
 	const options = {
