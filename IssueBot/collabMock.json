@@ -1,0 +1,27 @@
+[
+    {
+        "login": "bobcat",
+        "id": 10687,
+        "type": "User",
+        "site_admin": false,
+        "ldap_dn": "CN=sghanta,OU=People,DC=wolftech,DC=ad,DC=ncsu,DC=edu",
+        "permissions": {
+            "admin": true,
+            "push": true,
+            "pull": true
+        }
+    },
+    {
+        "login": "octocat",
+        "id": 11865,
+        "node_id": "MDQ6VXNlcjExODY1",
+        "type": "User",
+        "site_admin": false,
+        "ldap_dn": "CN=schippa,OU=People,DC=wolftech,DC=ad,DC=ncsu,DC=edu",
+        "permissions": {
+            "admin": false,
+            "push": true,
+            "pull": true
+        }
+    }
+]
