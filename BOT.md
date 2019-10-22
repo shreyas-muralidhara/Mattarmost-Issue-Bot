@@ -42,7 +42,7 @@ While implementing the bot we have two primary tasks:
 IssueBot is a Mattermost bot which can be deployed to a local or a central server that can actively connect to Mattermost API to carry out tasks. 
 
 ### Bot Integration:    
-IssueBot has been integrated with Mattermost using [Mattermost-client API](https://github.com/mattermost/mattermost-webapp).
+IssueBot has been integrated with Mattermost using [Mattermost-client API](https://www.npmjs.com/package/mattermost-client).
 
 
 
