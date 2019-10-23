@@ -94,8 +94,21 @@ USECASE 3: Agile planning with Github Issues.
 Since the focus on our milestone is platform integration and bot interaction, we do not have a working service implementation. We have mocked services and data to support service integration.  A proper mocking infrastructure has allowed us to swap real and testing information in a single place, instead of hard-coded throughout the code base.
 
 ### SELENIUM TESTING  
-We have used Selenium to verify that our bot is returning the correct response based on the input message. We have created a selenium test to demonstrate each use case. We have implemented at least one "happy path" and one "alternative" path for each use case. All the testcases are present in the folder Selenium Test. 
+We have used Selenium to verify that our bot is returning the correct response based on the input message. We have created a selenium test to demonstrate each use case. We have implemented at least one "happy path" and one "alternative" path for each use case. All the testcases are present in the folder Selenium Test.  
+  
+  
+USECASE1:Priority ordering of Issues based on milestone and labels  
+![UseCase1](https://media.github.ncsu.edu/user/10687/files/7192a680-f517-11e9-952e-3db309e5fc47)  
 
+USECASE2:Escalate stale issues to other team members  
+![UseCase2](https://media.github.ncsu.edu/user/10687/files/77888780-f517-11e9-9c11-5f70544fd29c)  
 
+USECASE3:Agile planning with Github Issues  
+![UseCase3](https://media.github.ncsu.edu/user/10687/files/7ce5d200-f517-11e9-8dd2-3588774b7391)  
+
+### SCREENCAST
+[USECASE1](https://drive.google.com/file/d/1ZKNMRcHRiIrCATpUvkQmUzyxqFBMIG4Q/view?usp=sharing)-**Priority ordering of Issues based on milestone and labels.**  
+[USECASE2](https://drive.google.com/file/d/1Cpt1mgy7RHx1V6ArFGiblaMCpq8iM_kr/view?usp=sharing)-**Escalate stale issues to other team members.**  
+[USECASE3](https://drive.google.com/file/d/1aO1t9B61LzqFf5v_Aiq6-WFRbvTjjTJl/view?usp=sharing)-**Agile planning with Github Issues.**   
 
 
