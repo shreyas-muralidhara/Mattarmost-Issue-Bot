@@ -5,12 +5,12 @@ const github = require("./github.js");
 const case3  = require("./case3.js");
 const nock = require("nock");
 // hardcoded
-let host = "127.0.0.1:8065"
-let group = "se-team"
-let bot_name = "testbot";
+let host = process.env.MMHOST;
+let group = process.env.MMGROUP;
+let bot_name = process.env.MMBOTNAME;
 let client = new Client(host, group, {});
-let repo = "Hello-World";
-let botEmail = "testbot@localhost";
+let repo = process.env.MMREPO;
+let botEmail = process.env.MMBOTMAIL;
 // Handle all of them with a config file or process.env
 const data = require("./mock.json");
 
@@ -297,7 +297,7 @@ async function getPriority(msg)
     }
     prio_score = prio_score.sort(function(a,b){return a[3] < b [3]});
     var message ="Here are the issues\n";
-    message += "Issue ID\t\tIssue label\t\tassignee\t\tPriority\n"
+    message += "Issue ID\t\tIssue title\t\tassignee\t\tPriority\n"
     for (var i=0;i<prio_score.length;i++){
 
       for(var j=0; j<prio_score.length; j++)
@@ -336,7 +336,7 @@ async function updatePrio(msg)
   if (flag == true && labels == null)
       print += "no labels assigned for this issue";
   else if (flag == false)
-      print += "Issue label does not exist"
+      print += "Issue title does not exist"
   else
       print += "These are the labels currently set for the issues:\n" + labels +"\n\nProide the labels in following format\" change issue <attribute> <new label> <old label>\"";
 

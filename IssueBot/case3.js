@@ -47,7 +47,10 @@ async function getAttributes(msg,client){
 
   let temp_issue = data.split(";");
   console.log(temp_issue);
-
+  if (temp_issue.length<4){
+    client.postMessage("Please list all the required attributes",msg.broadcast.channel_id);
+    return;
+  }
   create.title = temp_issue[1];
   create.body = temp_issue[2];
   create.milestone = temp_issue[3];
