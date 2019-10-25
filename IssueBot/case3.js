@@ -3,8 +3,10 @@ const nock = require("nock");
 const collabData = require("./collabMock.json");
 const issueData = require("./Mockissues.json");
 //set global variable
-let repo = "Hello-World";
-let bot_name = "testbot";
+let repo = process.env.MMREPO;
+//let repo = "Hello-World";
+let bot_name = process.env.MMBOTNAME;
+//let bot_name = "testbot";
 var issueLabel = "";
 var createlist;
 // list of attributes

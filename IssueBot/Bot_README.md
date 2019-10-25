@@ -6,19 +6,19 @@
     ex: export MMHOST=127.0.0.1:8065
 
 2. Set Team of Mattermost
-    ex: MMGROUP=se-team
+    ex: export MMGROUP=se-team
 
 3. Set BotName of Mattermost
-    export MMBOTNAME=testbot
+    ex: export MMBOTNAME=testbot
 
 4. Set Repository the team will be linked
-    export MMREPO=Hello-World
+    ex: export MMREPO=Hello-World
 
 5. Set BotEmail
-    export MMBOTMAIL=testbot@localhost
+    ex: export MMBOTMAIL=testbot@localhost
 
 6. Set Bot Token
-    export BOTTOKEN='bot-token'
+    ex: export BOTTOKEN='bot-token'
 
 7. configure tls settings to accept requests from http server
     export MATTERMOST_TLS_VERIFY=no
