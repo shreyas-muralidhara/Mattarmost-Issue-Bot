@@ -22,7 +22,29 @@ async function main()
     setInterval(staleIssuesBot,60000);
     client.on('message', function(msg)
     {
-        console.log(msg);
+        if (hears(msg)){
+            msg_parse(msg)
+        }
+    });
+}
+
+function msg_parse (msg)
+{
+    if( msg.data.post )
+    {
+
+        let post = JSON.parse(msg.data.post);
+        for text in []
+        if( post.message.indexOf(text) >= 0)
+        {
+            return true;
+        }
+        //if none of the functions are called request user to give proper input
+    }
+    
+    
+}
+console.log(msg);
           if( hears(msg, "Reassign") )
           {
             staleIssuesUser(msg);
@@ -49,24 +71,24 @@ async function main()
             print += "Issue label updated";
             client.postMessage(print,msg.broadcast.channel_id);
           }
-    });
-}
 
-function hears(msg, text)
+
+function hears(msg)
 {
     if( msg.data.sender_name == bot_name) return false;
     if( msg.data.post )
     {
 
         let post = JSON.parse(msg.data.post);
-        if( post.message.indexOf(text) >= 0)
+        if( len(post.message) >= 0) //check this 
         {
             return true;
         }
     }
     return false;
 }
-
+    
+}
 async function staleIssuesUser(msg){
     // Reassign <issueid> to @Jacob,@Charlie
     // parse the msg variable
