@@ -3,10 +3,8 @@ const nock = require("nock");
 const collabData = require("./collabMock.json");
 const issueData = require("./Mockissues.json");
 //set global variable
-let repo = process.env.MMREPO;
-//let repo = "Hello-World";
-let bot_name = process.env.MMBOTNAME;
-//let bot_name = "testbot";
+let repo = "Hello-World";
+let bot_name = "testbot";
 var issueLabel = "";
 var createlist;
 // list of attributes
@@ -49,10 +47,7 @@ async function getAttributes(msg,client){
 
   let temp_issue = data.split(";");
   console.log(temp_issue);
-  if (temp_issue.length<4){
-    client.postMessage("Please list all the required attributes",msg.broadcast.channel_id);
-    return;
-  }
+
   create.title = temp_issue[1];
   create.body = temp_issue[2];
   create.milestone = temp_issue[3];
