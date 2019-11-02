@@ -9,7 +9,6 @@ const nock = require("nock");
 //let host = process.env.MMHOST;
 //let group = process.env.MMGROUP;
 //let bot_name = process.env.MMBOTNAME;
-let client = new Client(host, group, {});
 let repo = process.env.MMREPO;
 let botEmail = process.env.MMBOTMAIL;
 // Handle all of them with a config file or process.env
@@ -17,7 +16,7 @@ const data = require("./mock.json");
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-async function staleIssuesUser(msg){
+async function staleIssuesUser(msg,client){
     // Reassign <issueid> to @Jacob,@Charlie
     // parse the msg variable
     let issueid = 2227;
@@ -29,7 +28,7 @@ async function staleIssuesUser(msg){
     let issues = await github.EditIssue("testuser",repo,issueid);
     let channel = msg.broadcast.channel_id;
     if(issues){
-      client.postMessage("Assignee has been successfully changed", channel);
+      client.postMessage("assignee has been successfully changed", channel);
     }
     else{
       client.postMessage("Problem with the request", channel);
@@ -37,7 +36,7 @@ async function staleIssuesUser(msg){
 }
 
 // issue label change is required
-async function staleIssuesBot(){
+async function staleIssuesBot(client){
   //let channel = msg.broadcast.channel_id;
 
   // Mocking service
