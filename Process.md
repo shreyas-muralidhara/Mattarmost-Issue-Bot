@@ -8,7 +8,7 @@ Refactoring: Improvement in the design of existing code without changing functio
 **Shared Code-**
 Anyone on the team can improve any part of the system at any time.
 
-**Work Progress**
+**Work Progress**  
 We have created a project board on 21st Oct and distributed all the tasks uniformly among the team members as user stories.
 ![11](https://media.github.ncsu.edu/user/13106/files/c0ec8a00-fd02-11e9-86e6-002998dc2100)
 
