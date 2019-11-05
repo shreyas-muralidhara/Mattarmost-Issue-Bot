@@ -11,21 +11,27 @@
 3. Set BotName of Mattermost
     ex: export MMBOTNAME=testbot
 
-4. Set Repository the team will be linked
-    ex: export MMREPO=Hello-World
-
-5. Set BotEmail
+4. Set BotEmail
     ex: export MMBOTMAIL=testbot@localhost
 
-6. Set Bot Token
+5. Set Bot Token
     ex: export BOTTOKEN='bot-token'
 
-7. configure tls settings to accept requests from http server
+6. configure tls settings to accept requests from http server
     export MATTERMOST_TLS_VERIFY=no
     export MATTERMOST_USE_TLS=no
 
+7. Set Git token  
+    ex: export GITTOKEN='git-token'
+
+8. Set Repository the team will be linked
+    ex: export MMREPO=Hello-World
+
+9. Set Repo owner  
+    ex: export GITOWNER='<owner>'
+
 ### CONFIGURATION REQUIRED FOR SELENIUM TESTING
 
-8. export USEREMAIL='your email'
+1. export USEREMAIL='your email'
 
-9. export USERPASS='your password'
+2. export USERPASS='your password'

@@ -18,8 +18,8 @@ const issueData = require("./Mockissues.json");
 class Case3{
   constructor(client){
     this.client = client;
-    this.repo = "Process-Milestone";
-    this.owner = "sghanta";
+    this.repo = process.env.MMREPO;
+    this.owner = process.env.GITOWNER;
     this.issuelabel="";
     this.createlist={};
     this.channelid;

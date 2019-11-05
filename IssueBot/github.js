@@ -1,7 +1,7 @@
 const got  = require('got');
 const request = require('request');
 var config ={}
-config.token = "c9733c328dd10d1e815b5e823f33d0e286709960";
+config.token = process.env.GITTOKEN;
 const urlRoot = "https://github.ncsu.edu/api/v3";
 //https://api.github.com
 async function getIssuesSince(owner, repo) {
@@ -91,11 +91,11 @@ async function getMilestone(owner,repo){
 	}
 }
 async function createIssue(owner, repo, createissue){
-	console.log(createissue, "in create Issue");
-	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/";
+
+	//const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/";
 	var options = {
 	method: 'POST',
-	url: 'https://api.github.ncsu.edu/repos/sghanta/Process-Milestone/issues',
+	url: 'https://api.github.ncsu.edu/repos/'+owner+'/'+repo+'/issues',
 	headers: {
 	      'User-Agent': 'CSC510-REST-WORKSHOP',
         'cache-control': 'no-cache',
