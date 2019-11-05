@@ -7,11 +7,8 @@ let bot_name = process.env.MMBOTNAME;
 
 async function getPriority(msg,client)
 {
-    const issue2 = nock("https://api.github.com")
-    .get("/repos/testuser/Hello-World/issues")
-    .reply(200, JSON.stringify(data));
 
-    let issue = await github.getIssuesSince("testuser",repo);
+    let issue = await github.getIssuesSince("sghanta",repo);
 
     var time_weight = 35;
     var prio_weight = 35;
@@ -59,8 +56,9 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
+      console.log("issue [",i,"] = ", issue[i]); 
       //Consider only open issues for Priority ordering
-      if(issue[i].state == "open")
+      if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
         if(issue[i].labels.length > 0)
         {
@@ -160,11 +158,8 @@ async function getPriority(msg,client)
 
 async function updatePrio(msg,client)
 {
-  const issue3 = nock("https://api.github.com")
-  .get("/repos/testuser/Hello-World/issues")
-  .reply(200, JSON.stringify(data));
 
-  let issue = await github.getIssuesSince("testuser",repo);
+  let issue = await github.getIssuesSince("sghanta",repo);
   var message = JSON.parse(msg.data.post).message;
 
   var labels = "";
