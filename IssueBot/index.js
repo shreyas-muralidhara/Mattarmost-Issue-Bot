@@ -4,7 +4,7 @@ const _ = require("underscore");
 const github = require("./github.js");
 const case1 = require("./case1.js");
 const case2 = require("./case2.js")
-const case3  = require("./case3.js");
+const Case3  = require("./case3.js");
 
 const nock = require("nock");
 // hardcoded
@@ -21,7 +21,8 @@ async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    setInterval(case2.staleIssuesBot,60000,client);
+    //setInterval(case2.staleIssuesBot,60000,client);
+    let case3=null;
     client.on('message', function(msg)
     {
           console.log(msg);
@@ -31,12 +32,18 @@ async function main()
           }
           else if(hears(msg,"I have a"))
           {
-            case3.createIssue(msg,client);
+            case3 = new Case3(client);
+            case3.createIssue(msg);
           }
           else if(hears(msg,"Attributes")){
-            case3.getAttributes(msg,client);
+            if(case3!=null){
+            case3.getAttributes(msg);
+          }
           }else if(hears(msg,"Assign")){
-            case3.createAPI(msg,client);
+            if(case3!=null){
+            case3.createAPI(msg);
+          }
+            case3 = null;
           }else if( hears(msg, "display list of open issues"))
           {
             case1.getPriority(msg,client);
