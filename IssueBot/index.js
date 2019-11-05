@@ -21,7 +21,7 @@ async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    setInterval(case2.staleIssuesBot,60000,client);
+    //setInterval(case2.staleIssuesBot,60000,client);
     let case3=null;
     client.on('message', function(msg)
     {
@@ -33,15 +33,15 @@ async function main()
           else if(hears(msg,"I have a"))
           {
             case3 = new Case3(client);
-            case3.createIssue(msg,client);
+            case3.createIssue(msg);
           }
           else if(hears(msg,"Attributes")){
             if(case3!=null){
-            case3.getAttributes(msg,client);
+            case3.getAttributes(msg);
           }
           }else if(hears(msg,"Assign")){
             if(case3!=null){
-            case3.createAPI(msg,client);
+            case3.createAPI(msg);
           }
             case3 = null;
           }else if( hears(msg, "display list of open issues"))
