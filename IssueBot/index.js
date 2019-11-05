@@ -16,7 +16,7 @@ let repo = process.env.MMREPO;
 let botEmail = process.env.MMBOTMAIL;
 // Handle all of them with a config file or process.env
 //const data = require("./mock.json");
-
+let case3 = null;
 async function main()
 {
     console.log(process.env.BOTTOKEN);
@@ -27,7 +27,7 @@ async function main()
              if (hears(msg)){
               msg_parse(msg);
           }
-  
+
     });
 }
 
@@ -38,19 +38,26 @@ function msg_parse (msg)
 
         let post = JSON.parse(msg.data.post);
         let data = post.message.toLowerCase().split(" ");
+        console.log(data);
         if( (data.includes("hard") || data.includes("medium") || data.includes("easy")) && (data.includes("have") ||data.includes("create") || data.includes("new")) && data.includes("issue"))
-         {   
-          
-            return case3.createIssue(msg,client);
+         {
+
+            case3 = new Case3(client);
+            return case3.createIssue(msg);
             //console.log("enter final")
          }
-        else if (data.includes("attributes") || data.includes("issueattributes"))
+        else if (post.message.includes("Attributes")) // change this to form
         {
-            return case3.getAttributes(msg,client);
+            if(case3!=null){
+            return case3.getAttributes(msg);
+          }
         }
         else if (data.includes("assign") && data.includes("issue"))
         {
-            return case3.createAPI(msg,client);        
+            if (case3!=null){
+            return case3.createAPI(msg);
+            case3=null;
+          }
         }
         else if (data.includes("reassign"))
         {
@@ -58,35 +65,34 @@ function msg_parse (msg)
         }
         else if((data.includes("list") ||data.includes("all")) && (data.includes("display") ||data.includes("show")) && data.includes("issues"))
         {
-            return getPriority(msg);         
+            return case1.getPriority(msg,client);
         }
         else if(data.includes("show")||data.includes("display") && (data.includes("priority")))
         {
-           return updatePrio(msg,client);  
+           return case1.updatePrio(msg,client);
         }
         //add shreyas fuction for changing priority
         else
         {
           client.postMessage("Please enter the correct data",msg.broadcast.channel_id)
-          //print to mattermost channel that the input is wrong 
+          //print to mattermost channel that the input is wrong
         }
         //if none of the functions are called request user to give proper input
     }
-    
-    
+
+
 }
 
 
 function hears(msg, text)
 {
-  console.log("enterd") 
-  if( msg.data.sender_name == bot_name) return false;
+  if( msg.data.sender_name.includes(bot_name)) return false;
   if( msg.data.post )
-  { 
+  {
       console.log("hwe")
       let post = JSON.parse(msg.data.post);
       console.log(post.message)
-      if( post.message.length >= 0) //check this 
+      if( post.message.length >= 0) //check this
       {
           return true;
       }
