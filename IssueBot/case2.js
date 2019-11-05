@@ -1,3 +1,7 @@
+//Assumptions
+// Each User should have same username in Mattermost and GitHub 
+// We have currently displaying stale Issues once every 1 minute for demonstration purpose, it was actually intended to be once each day
+// Our Idea for an issue to be stale is if it is not updated in the last 15 days but currently we have set it to 1 day for demonstration.
 const Client = require('mattermost-client');
 const _ = require("underscore");
 
