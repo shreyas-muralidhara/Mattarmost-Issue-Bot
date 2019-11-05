@@ -1,23 +1,37 @@
 const got  = require('got');
-const token = "token " + "YOUR TOKEN";
-const urlRoot = "https://api.github.com";
-
-
+const request = require('request');
+var config ={}
+config.token = process.env.GITTOKEN;
+const urlRoot = "https://github.ncsu.edu/api/v3";
+//https://api.github.com
 async function getIssuesSince(owner, repo) {
-	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues";
+	const urlval = urlRoot + "/repos/" + owner + "/" + repo + "/issues";
 	const options = {
 		method: 'GET',
+		url: urlval,
 		headers: {
 			"content-type": "application/json",
-			"Authorization": token
+			"Authorization": `token ${config.token}`
 		},
 		json: true
 	};
+	return new Promise(function(resolve, reject)
+	{
+		request(options, function (error, response, body)
+		{
+			if(error)
+			{
+				console.log(error);
+				reject(error);
+				return; //Terminate execution
+			}
 
-	// Send a http request to url
-	let issues = (await got(url, options)).body;
-	return issues;
+			resolve( body );
+
+		});
+	});
 }
+
 async function EditIssue(owner,repo,issueNumber,assignees) {
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/"+issueNumber;
   const postbody = {
@@ -27,7 +41,7 @@ async function EditIssue(owner,repo,issueNumber,assignees) {
 		method: 'PATCH',
 		headers: {
 			"content-type": "application/json",
-			"Authorization": token
+			"Authorization": `token ${config.token}`
 		},
     body: JSON.stringify(postbody)
 	};
@@ -41,14 +55,16 @@ async function getCollaborators(owner,repo){
 		method: 'GET',
 		headers: {
 			"content-type": "application/json",
-			"Authorization": token
+			"Authorization": `token ${config.token}`
 		},
 		json: true
 	};
-
-	// Send a http request to url
-	let collaborators = (await got(url, options)).body;
-	return collaborators;
+	try{
+		let collaborators = (await got(url, options)).body;
+		return collaborators;
+	}catch(error){
+		console.log(error.response.body);
+	}
 }
 async function getIssueswithState(owner,repo,state,assignee){
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues?state="+state+"&assignee="+assignee;
@@ -56,14 +72,17 @@ async function getIssueswithState(owner,repo,state,assignee){
 		method: 'GET',
 		headers: {
 			"content-type": "application/json",
-			"Authorization": token
+			"Authorization": `token ${config.token}`
 		},
 		json: true
 	};
-
-	// Send a http request to url
-	let issues = (await got(url, options)).body;
-	return issues;
+	try{
+		let issues = (await got(url, options)).body;
+		return issues;
+	}catch(error){
+		return [];
+		console.log(error.response.body);
+	}
 }
 async function getMilestone(owner,repo){
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/milestones";
@@ -71,28 +90,48 @@ async function getMilestone(owner,repo){
 		method: 'GET',
 		headers: {
 			"content-type": "application/json",
-			"Authorization": token
+			"Authorization": `token ${config.token}`
 		},
 		json: true
 	};
   // send a http request to urlRoot
-  let milestones = (await got(url,options)).body;
-  return milestones;
+	try{
+		let milestones = (await got(url,options)).body;
+		return milestones;
+	}catch(error){
+		console.log(error.response.body);
+		return null;
+	}
 }
-async function createIssue(owner,repo,createissue) {
-  const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/";
+async function createIssue(owner, repo, createissue){
 
-  const options = {
-		method: 'POST',
-		headers: {
-			"content-type": "application/json",
-			"Authorization": token
-		},
-    body: JSON.stringify(createissue)
+	//const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/";
+	var options = {
+	method: 'POST',
+	url: 'https://api.github.ncsu.edu/repos/'+owner+'/'+repo+'/issues',
+	headers: {
+	      'User-Agent': 'CSC510-REST-WORKSHOP',
+        'cache-control': 'no-cache',
+        'Authorization': `token ${config.token}`,
+        'content-type': 'application/json'
+	},
+	body: JSON.stringify(createissue)
 	};
-	// Send a http request to url
-	let issues = (await got(url, options)).body;
-	return issues;
+
+	return new Promise(function(resolve, reject)
+	{
+	 	request(options, function(error, response, body)
+		{
+			if (error)
+			{
+				console.log(error);
+				reject(error);
+				return;
+			}
+			obj = JSON.parse(body);
+			resolve(obj);
+			});
+		});
 }
 
 exports.createIssue = createIssue;

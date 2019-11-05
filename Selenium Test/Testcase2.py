@@ -1,6 +1,7 @@
 from  selenium import webdriver
 from  selenium.common.exceptions import TimeoutException
 import time
+import os
 
 def UseCase2(Flow):
     #if Flow==1:
@@ -35,8 +36,8 @@ username = browser.find_element_by_id("loginId")
 password = browser.find_element_by_id("loginPassword")
 submit   = browser.find_element_by_id("loginButton")
 
-username.send_keys("cmanideep96@gmail.com")
-password.send_keys("Manideep@96")
+username.send_keys(os.environ['USEREMAIL'])
+password.send_keys(os.environ['USERPASS'])
 submit.submit()
 
 Flow=1

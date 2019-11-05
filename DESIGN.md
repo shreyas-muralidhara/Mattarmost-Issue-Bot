@@ -10,14 +10,13 @@ The implementation of the issue bots should overcome these mundane tasks for the
 Users interact with the bot in simple phrases, where the user directs specific task to the bot.
 Bot triggers the required commands at the backend. This avoids the user to periodically visit github for the follow up of each notification.
 The user should have the independence of letting the bot know on what notification he wants to receive. 
-
 ## Bot Description:
 The Issue Bot is an easy to use bot that helps users in issue maintenance tasks such as:  
-* **Priority ordering of Issues based on a ranking and momentum.**   
+* **Priority ordering of Issues based on milestone and labels.**   
   Issues on github are handled by assigning multiple labels. But when there are many issues, then collaborator needs to figure out which one takes the priority. Manually processing issues based on labels is easier for a short list. This is not the case in most repositories that are open to community of developers. This is where issue bot comes to the rescue by prioritizing the issues and tracking them periodically.  
   Bot takes into consideration the time of creation,label attributes- type, priority and status. Then generates a priority rank for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution.
 * **Escalate stale issues to other team members.**  
-  The Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. The owner of the   issue can then reassign the stale issue to some other team members.
+  The Bot will notify the owner of the issue about stale issues by sending a direct message . The owner of the issue can then reassign the stale issue to some other team members.
 * **Agile planning with Github Issues.**  
   Based on an individual's skill and experience, each team member can resolve the issues accordingly in a sprint. Agile manager needs to estimate the effort required for completion of issue before sprint. Our issue bot can abate the task of Agile manager and help in making an informed decision, by displaying the existing workload for each member.           
   At backend, Bot assigns level of difficulty-hard, medium, easy. It then calculates **performance metric** for each team member, based on the weighted average of issues completed in past 2 sprints. Additionally, bot computes **workload metric** by member based on his weight of both existing incomplete issues and the new issue. Bot displays the potential team members who can work on issue, only if their performance metric is greater than their existing workload metric.
@@ -28,12 +27,12 @@ Our Issue Bot is a response to events bot. Our bot falls into the category of ch
 
 ## Use Cases
 ```
-USECASE 1: Priority ordering of Issues based on a sentimental score.
+USECASE 1: Priority ordering of Issues based on milestone and labels.
 1. Pre-conditions:
    The bot needs to be subscribed to the repository. If it is a Private repo the user should be a collaborator/owner of the Repository.
    For all existing open issues, the attribute labels- issuetype, issuepriority and issuestatus needs to be specified.
 2. Main Flow: 
-   When user requests for open issues, the bot displays the issues in prioritised order based on the label attribute sentimental score and also allows the user to change the label attributes. 
+   When user requests for open issues, the bot displays the issues in prioritised order based on the label attributes and also allows the user to change the label attributes. 
 3. Subflows:
    [S1]- The user would request open issues in the repository.
    [S2]- The bot will get the issues and determine its sentimental score based on the label attributes.  
@@ -43,17 +42,17 @@ USECASE 1: Priority ordering of Issues based on a sentimental score.
    [E1]- If the labels for an issue are missing then sentimental score cannot be generated.
    ```
  ```  
-USECASE 2: Stale issues alerts to all team members.
+USECASE 2: Escalate stale issues to other team members.
 1. Pre-conditions:
    The bot needs to have the access to the repository. There must be some issues existing in the repository. 
 2. Main Flow:
-   Bot will notify the author and collaborators of the repo of any stale issues by sending a direct message to them. If the member has      unsubscribed from the issue, he will not be notified. The owner of the issue can then reassign the stale issue to some other team        members.
+    The Bot will notify the owner of the issue about stale issues by sending a direct message . The owner of the issue can then reassign the stale issue to some other team members.
 3. Subflows:
-   [S1] Bot will notify the author and the collaborators of the repo of any stale issues.  
+   [S1] Bot will notify the owner of the stale issues.  
    [S2] If some member has unsubscribed from the issue, he will not be notified.  
    [S3] The author can then reassign the stale issue to some other team members.  
 4. Alternative Flows:
-   [E1] All the collaborators except for the owner of the issue have unsubscribed from the issue.
+   [E1] The user will receive alerts only if there are stale issues.
  ``` 
 
 ```
@@ -99,6 +98,7 @@ The following screens display the mock up of **issue bot**, for each of the use 
 Below diagram displays the high level overview - Issue Bot:
 ![Image Pasted at 2019-9-27 17-35](https://media.github.ncsu.edu/user/10687/files/f1209600-e162-11e9-9e42-16e4dcd60418)
 
+
 Our Issue bot interacts with following third party services:  
   GitHub  
   Mattermost  
@@ -109,7 +109,7 @@ Issue Bot would interact with users through its own Mattermost account.
 #### Architectural Compnents
 
 This project involves the usage of following components:  
-![Architecture](https://media.github.ncsu.edu/user/10687/files/83468680-ebc6-11e9-8777-cd501a760d2b)
+![Image Pasted at 2019-10-22 21-32](https://media.github.ncsu.edu/user/10687/files/86216f80-f514-11e9-8ea6-f8dfa3b96409)
 
 **Github**- GitHub provides hosting for software development version control using Git.  It provides access control and several collaboration features such as bug tracking, feature requests, task management, and wikis for every project.  Our bot is going to communicate with Github using Github REST API calls.  
 **Mattermost**- Mattermost is an open-source, self-hostable online chat service. It is designed as an internal chat for organisations and companies. We will be deploying our bot on Mattermost.  

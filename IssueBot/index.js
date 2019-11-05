@@ -4,7 +4,7 @@ const _ = require("underscore");
 const github = require("./github.js");
 const case1 = require("./case1.js");
 const case2 = require("./case2.js")
-const case3  = require("./case3.js");
+const Case3  = require("./case3.js");
 
 const nock = require("nock");
 // hardcoded
@@ -24,10 +24,8 @@ async function main()
     setInterval(case2.staleIssuesBot,60000,client);
     client.on('message', function(msg)
     {
-          console.log("Entered 1")
-          if (hears(msg)){
-              console.log("Entered 2")
-              msg_parse(msg)
+             if (hears(msg)){
+              msg_parse(msg);
           }
   
     });
@@ -40,13 +38,12 @@ function msg_parse (msg)
 
         let post = JSON.parse(msg.data.post);
         let data = post.message.toLowerCase().split(" ");
-        console.log(data)
         if( (data.includes("hard") || data.includes("medium") || data.includes("easy")) && (data.includes("have") ||data.includes("create") || data.includes("new")) && data.includes("issue"))
-        {   
-          console.log("before function call")
+         {   
+          
             return case3.createIssue(msg,client);
-            console.log("enter final")
-        }
+            //console.log("enter final")
+         }
         else if (data.includes("attributes") || data.includes("issueattributes"))
         {
             return case3.getAttributes(msg,client);
