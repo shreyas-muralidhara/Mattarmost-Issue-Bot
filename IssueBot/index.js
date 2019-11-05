@@ -34,10 +34,23 @@ function msg_parse (msg)
     {
 
         let post = JSON.parse(msg.data.post);
-        for text in []
-        if( post.message.indexOf(text) >= 0)
+        let data = post.message.split("");
+        //make it case insensitive
+        if( data.includes("hard" or "medium" or "easy") && data.includes("have" or "create" or "new") && data.includes("issue"))
         {
-            return true;
+            return case3.createIssue(msg,client);
+        }
+        else if (data.includes("attributes" or "issueattributes"))
+        {
+            return case3.createIssue(msg,client);
+        }
+        else if (data.includes("assign") && data.includes("issue"))
+        {
+            return case3.createAPI(msg,client);        
+        }
+        else if (data.includes("list" or "all") && data.includes("display" or "show") && data.includes("issues"))
+        {
+            return getPriority(msg);         
         }
         //if none of the functions are called request user to give proper input
     }
