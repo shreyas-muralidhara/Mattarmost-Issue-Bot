@@ -15,65 +15,83 @@ let client = new Client(host, group, {});
 let repo = process.env.MMREPO;
 let botEmail = process.env.MMBOTMAIL;
 // Handle all of them with a config file or process.env
-const data = require("./mock.json");
+//const data = require("./mock.json");
 
 async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    //setInterval(case2.staleIssuesBot,60000,client);
-    let case3=null;
+    setInterval(case2.staleIssuesBot,60000,client);
     client.on('message', function(msg)
     {
-          console.log(msg);
-          if( hears(msg, "Reassign") )
-          {
-            case2.staleIssuesUser(msg,client);
+             if (hears(msg)){
+              msg_parse(msg);
           }
-          else if(hears(msg,"I have a"))
-          {
-            case3 = new Case3(client);
-            case3.createIssue(msg);
-          }
-          else if(hears(msg,"Attributes")){
-            if(case3!=null){
-            case3.getAttributes(msg);
-          }
-          }else if(hears(msg,"Assign")){
-            if(case3!=null){
-            case3.createAPI(msg);
-          }
-            case3 = null;
-          }else if( hears(msg, "display list of open issues"))
-          {
-            case1.getPriority(msg,client);
-          }
-          else if( hears(msg, "update the priority for "))
-          {
-            case1.updatePrio(msg,client);
-          }
-          else if( hears(msg, "change issue priority"))
-          {
-            var print = "";
-            print += "Issue label updated";
-            client.postMessage(print,msg.broadcast.channel_id);
-          }
+  
     });
 }
 
-function hears(msg, text)
+function msg_parse (msg)
 {
-    if( msg.data.sender_name == bot_name) return false;
     if( msg.data.post )
     {
 
         let post = JSON.parse(msg.data.post);
-        if( post.message.indexOf(text) >= 0)
+        let data = post.message.toLowerCase().split(" ");
+        if( (data.includes("hard") || data.includes("medium") || data.includes("easy")) && (data.includes("have") ||data.includes("create") || data.includes("new")) && data.includes("issue"))
+         {   
+          
+            return case3.createIssue(msg,client);
+            //console.log("enter final")
+         }
+        else if (data.includes("attributes") || data.includes("issueattributes"))
         {
-            return true;
+            return case3.getAttributes(msg,client);
         }
+        else if (data.includes("assign") && data.includes("issue"))
+        {
+            return case3.createAPI(msg,client);        
+        }
+        else if (data.includes("reassign"))
+        {
+          return case2.staleIssuesUser(msg,client)
+        }
+        else if((data.includes("list") ||data.includes("all")) && (data.includes("display") ||data.includes("show")) && data.includes("issues"))
+        {
+            return getPriority(msg);         
+        }
+        else if(data.includes("show")||data.includes("display") && (data.includes("priority")))
+        {
+           return updatePrio(msg,client);  
+        }
+        //add shreyas fuction for changing priority
+        else
+        {
+          client.postMessage("Please enter the correct data",msg.broadcast.channel_id)
+          //print to mattermost channel that the input is wrong 
+        }
+        //if none of the functions are called request user to give proper input
     }
-    return false;
+    
+    
+}
+
+
+function hears(msg, text)
+{
+  console.log("enterd") 
+  if( msg.data.sender_name == bot_name) return false;
+  if( msg.data.post )
+  { 
+      console.log("hwe")
+      let post = JSON.parse(msg.data.post);
+      console.log(post.message)
+      if( post.message.length >= 0) //check this 
+      {
+          return true;
+      }
+  }
+  return false;
 }
 
 
