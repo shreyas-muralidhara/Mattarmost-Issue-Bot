@@ -30,11 +30,11 @@ class Case3{
     let splitData = data.split(" ");
     //var issue_label = "";
     if (splitData.includes("hard")){
-      this.issuelabel = "hard";
+      this.issuelabel = "Difficulty:Hard";
     }else if (splitData.includes("medium")) {
-      this.issuelabel = "medium";
+      this.issuelabel = "Difficulty:Medium";
     }else if (splitData.includes("easy")){
-      this.issuelabel = "easy";
+      this.issuelabel = "Difficulty:Easy";
     }else{
       this.client.postMessage("Can't interpet the message",msg.broadcast.channel_id);
       this.issuelabel="";

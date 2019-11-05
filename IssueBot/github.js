@@ -5,20 +5,33 @@ config.token = process.env.GITTOKEN;
 const urlRoot = "https://github.ncsu.edu/api/v3";
 //https://api.github.com
 async function getIssuesSince(owner, repo) {
-	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues";
+	const urlval = urlRoot + "/repos/" + owner + "/" + repo + "/issues";
 	const options = {
 		method: 'GET',
+		url: urlval,
 		headers: {
 			"content-type": "application/json",
 			"Authorization": `token ${config.token}`
 		},
 		json: true
 	};
+	return new Promise(function(resolve, reject)
+	{
+		request(options, function (error, response, body)
+		{
+			if(error)
+			{
+				console.log(error);
+				reject(error);
+				return; //Terminate execution
+			}
 
-	// Send a http request to url
-	let issues = (await got(url, options)).body;
-	return issues;
+			resolve( body );
+
+		});
+	});
 }
+
 async function EditIssue(owner,repo,issueNumber,assignees) {
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/"+issueNumber;
   const postbody = {
