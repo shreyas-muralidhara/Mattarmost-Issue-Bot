@@ -56,7 +56,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
-      console.log("issue [",i,"] = ", issue[i]); 
+      console.log("issue [",i,"] = ", issue[i]);
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
