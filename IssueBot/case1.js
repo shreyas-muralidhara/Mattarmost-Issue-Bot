@@ -16,10 +16,6 @@ async function getPriority(msg,client)
     var type_weight = 15;
 
     var prio_score = [];
-    var label_prio; 
-    var label_status;
-    var label_type;
-    var label_milestone;
 
     /* Assigning weights to attribut:priority based on labels.
     // We consider high as Maximum and low as minimum.*/
@@ -60,7 +56,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
-      //console.log("issue [",i,"] = ", issue[i]); 
+      console.log("issue [",i,"] = ", issue[i]); 
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
@@ -70,133 +66,70 @@ async function getPriority(msg,client)
           {
             //Assigning priority attribute weights based on its labels
             if(issue[i].labels[j].name.toUpperCase().match(/HIGH/i))
-            {
                 val_prio = prio_high;
-                label_prio = 'High';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/NORMAL/i))
-            {   
                 val_prio = prio_normal;
-                label_prio = 'Normal';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/LOW/i))
-            {
                 val_prio = prio_low;
-                label_prio = 'Low';
-            }
 
             //Assigning status attribute weights based on its labels
             else if (issue[i].labels[j].name.toUpperCase().match(/CREATED/i))
-            {
                 val_status = stat_created;
-                label_status = 'Created';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/CONFIRMED/i))
-            {
                 val_status = stat_confirmed;
-                label_status = 'Confirmed';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/DEFERRED/i))
-            {
                 val_status = stat_deferred;
-                label_status = 'Deferred';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/PROGRESS/i))
-            {
                 val_status = stat_in_progress;
-                label_status = 'Progress';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/FIX/i))
-            {
                 val_status = stat_fix_committed;
-                label_status = 'Fix';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/RESOLVED/i))
-            {
                 val_status = stat_resolved;
-                label_status = 'Resolved';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/INCOMPLETE/i))
-            {
                 val_status = stat_incomplete;
-                label_status = 'Incomplete';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/REJECTED/i))
-            {
                 val_status = stat_rejected;
-                label_status = 'Rejected';
-            }
 
             //Assigning Issue type attribute weights based on its labels
             else if (issue[i].labels[j].name.toUpperCase().match(/BUG/i))
-            {
                 val_issue_type = isstype_bug;
-                label_type = 'Bug';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/SUPPORT/i))
-            {
                 val_issue_type = isstype_support;
-                label_type = 'Support';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/TASK/i))
-            {
                 val_issue_type = isstype_task;
-                label_type = 'Task';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/FEATURE/i))
-            {
                 val_issue_type = isstype_feature;
-                label_type = 'Feature';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/IDEA/i))
-            {
                 val_issue_type = isstype_idea;
-                label_type = 'Idea';
-            }
             else if (issue[i].labels[j].name.toUpperCase().match(/INVALID/i))
-            {
                 val_issue_type = isstype_invalid;
-                label_type = 'Invalid';
-            }
 
 
 
             //Assigning default attribute valies i.e. priority - low, status - created and issue type - idea.
-            if(val_prio == -1) { val_prio = prio_def; label_prio = 'Low (default)';}
-            if(val_status == -1) { val_status = stat_def; label_status = 'Created (default)';}
-            if( val_issue_type == -1) { val_issue_type = isstype_def; label_type = 'Idea (default)';}
-
+            if(val_prio == -1) val_prio = prio_def;
+            if(val_status == -1) val_status = stat_def;
+            if( val_issue_type == -1) val_issue_type = isstype_def;
           }
         }
         else if(issue[i].labels.length==0)
         {
-          val_prio = prio_def; label_prio = 'Low (default)';
-          val_status = stat_def; label_status = 'Created (default)';
-          val_issue_type = isstype_def; label_type = 'Idea (default)';
+          val_prio = prio_def;
+          val_status = stat_def;
+          val_issue_type = isstype_def;
         }
 
         var currtime = new Date().getTime();
         if(issue[i].milestone==null)
-        {
-            var milestoneDue = 14*24*60*60*1000+currtime;
-            label_milestone = '';
-        }
+            var milestoneDue = 7*24*60*60*1000+currtime;
         else
-        {
-            var milestoneDue = new Date(issue[i].milestone.due_on).getTime();
-            label_milestone = issue[i].milestone.due_on.substring(0,10);
-        }
+          var milestoneDue = new Date(issue[i].milestone.due_on).getTime();
+
 
         if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
-        {
           var val_timeDays = 100 - ((currtime - new Date(issue[i].created_at).getTime())/(24*60*60*1000));
-          //console.log("case 1 ",issue[i].title);
-        }
         else
-        {
           var val_timeDays= 100 - (((milestoneDue - new Date(issue[i].created_at).getTime())/(24*60*60*1000))*val_status);
-          //console.log("case 2 ", issue[i].title);
-        }
 
         if(issue[i].assignee == null)
             var user_assignee = "No assignee";
@@ -204,25 +137,20 @@ async function getPriority(msg,client)
             var user_assignee = issue[i].assignee.login;
 
         var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
-        weight = Number(weight.toFixed(2));
+        weight = weight.toFixed(2);
 
-        prio_score[i] = [issue[i].id,issue[i].title,user_assignee,label_milestone,label_prio,label_status,label_type,weight];
+        prio_score[i] = [issue[i].id,issue[i].title,user_assignee,weight];
 
         //console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
       }
     }
-    
-    prio_score = prio_score.sort(function(a,b){return a[7] < b[7]});
-    var message ="Here are the issues";
-    client.postMessage(message,msg.broadcast.channel_id);
-    message = "";
-    message += "| Issue ID | Issue title | Assignee | Milestone Due | Priority | Status | Issue Type | Priority|\n"
-    message += "| :----- | :---------: | :------: | :------: | :------: | :------: | :------: | ----: |\n"
-    
+    prio_score = prio_score.sort(function(a,b){return a[3] < b [3]});
+    var message ="Here are the issues\n";
+    message += "Issue ID\t\tIssue title\t\tassignee\t\tPriority\n"
     for (var i=0;i<prio_score.length;i++){
-      message += "| "
-      for(var j=0; j<prio_score[i].length; j++)
-           message += prio_score[i][j] + " | ";
+
+      for(var j=0; j<prio_score.length; j++)
+           message += prio_score[i][j] + "\t\t";
       message += "\n"
     }
     client.postMessage(message,msg.broadcast.channel_id);
