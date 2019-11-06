@@ -21,7 +21,7 @@ async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    setInterval(case2.staleIssuesBot,60000,client);
+    setInterval(case2.staleIssuesBot,10000,client);
     client.on('message', function(msg)
     {
              if (hears(msg)){

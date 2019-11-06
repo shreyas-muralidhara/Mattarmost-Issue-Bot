@@ -35,7 +35,7 @@ async function getIssuesSince(owner, repo) {
 async function EditIssue(owner,repo,issueNumber,assignees) {
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/"+issueNumber;
   const postbody = {
-  "assignees": assignees
+  "assignees": [assignees]
     };
   const options = {
 		method: 'PATCH',

@@ -1,5 +1,5 @@
 //Assumptions
-// Each User should have same username in Mattermost and GitHub 
+// Each User should have same username in Mattermost and GitHub
 // We have currently displaying stale Issues once every 1 minute for demonstration purpose, it was actually intended to be once each day
 // Our Idea for an issue to be stale is if it is not updated in the last 15 days but currently we have set it to 1 day for demonstration.
 const Client = require('mattermost-client');
@@ -21,13 +21,16 @@ const data = require("./mock.json");
 async function staleIssuesUser(msg,client){
     // Reassign <issueid> to @Jacob,@Charlie
     // parse the msg variable
-    let issueid = 2227;
-    users = ["tom@gmail.com","jerry@gmail.com"]
-    const issue1 = nock("https://api.github.com")
-        .intercept("/repos/testuser/Hello-World/issues/2227","PATCH")
-        .reply(200, JSON.stringify(data[0]));
-
-    let issues = await github.EditIssue("testuser",repo,issueid);
+    //let issueid = 2227;
+    let post = JSON.parse(msg.data.post);
+    let data = post.message.toLowerCase().split(" ");
+    //console.log(data)
+    issue_id= data[1]
+    assign= data[3]
+    owner=process.env.GITOWNER;
+    //console.log(issue_id)
+    //console.log(assign)
+    let issues = await github.EditIssue(owner,repo,issue_id,assign);
     let channel = msg.broadcast.channel_id;
     if(issues){
       client.postMessage("assignee has been successfully changed", channel);
@@ -39,7 +42,7 @@ async function staleIssuesUser(msg,client){
 
 // issue label change is required
 async function staleIssuesBot(client){
-  
+
   let issues = await github.getIssuesSince("sghanta",repo);
   var dict = {};
   // current time
@@ -49,17 +52,17 @@ async function staleIssuesBot(client){
         if (issues[i].hasOwnProperty('pull_request')==false ){
           if (issues[i].assignee.login != null){
 
-          if (issues[i].user.login in dict){  
-          dict[issues[i].user.login].push([issues[i].id,issues[i].title,issues[i].assignee.login]);
+          if (issues[i].user.login in dict){
+          dict[issues[i].user.login].push([issues[i].number,issues[i].title,issues[i].assignee.login]);
           }
           else{
-            dict[issues[i].user.login] = [[issues[i].id,issues[i].title,issues[i].assignee.login]];
+            dict[issues[i].user.login] = [[issues[i].number,issues[i].title,issues[i].assignee.login]];
           }
-      }  
+      }
     }
   }
 }
-
+  //console.log(dict)
   if(Object.keys(dict).length>0){
   for(var key in dict){
     var msg="Here are the stale issues ..... \n";
@@ -70,11 +73,14 @@ async function staleIssuesBot(client){
       if (client.users[i].username==key){
         var Userid=client.users[i].id
       }
-    } 
-    
+    }
+    //console.log(dict)
     for (var c in channels){
+        //console.log(channels[c].name)
+        //console.log(Userid)
+        //console.log(Botid)
         if(channels[c].name.includes(Userid) && channels[c].name.includes(Botid)){
-          
+
           for(var i=0;i<dict[key].length;i++){
             msg = msg+dict[key][i][0]+"    "+dict[key][i][1]+ "     "+dict[key][i][2]+"\n";
           }
@@ -82,7 +88,8 @@ async function staleIssuesBot(client){
           break;
         }
     }
-
+    Botid=null
+    Userid=null
 
   }
   }
