@@ -21,7 +21,7 @@ async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    setInterval(case2.staleIssuesBot,10000,client);
+    //setInterval(case2.staleIssuesBot,15000,client);
     client.on('message', function(msg)
     {
              if (hears(msg)){
@@ -89,7 +89,7 @@ function hears(msg, text)
   if( msg.data.sender_name.includes(bot_name)) return false;
   if( msg.data.post )
   {
-      console.log("hwe")
+
       let post = JSON.parse(msg.data.post);
       console.log(post.message)
       if( post.message.length >= 0) //check this

@@ -91,7 +91,12 @@ class Case3{
     var users= await this.planning(due_on);
     //console.log("Shold enter planning",users,users.length);
     if(users.length>0){
-    this.client.postMessage("Here are the users who can complete the work: "+users,this.channelid);
+      msg = "Here are the users who can complete the work: \n";
+      for (var i = 0; i < users.length; i++) {
+        msg = msg+"  * "+ users[i]+"\n";
+      }
+    //this.client.postMessage("Here are the users who can complete the work: "+users,this.channelid);
+    this.client.postMessage(msg,this.channelid);
     //createlist = create;
     }
     else{

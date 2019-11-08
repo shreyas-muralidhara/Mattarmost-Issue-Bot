@@ -65,7 +65,8 @@ async function staleIssuesBot(client){
   //console.log(dict)
   if(Object.keys(dict).length>0){
   for(var key in dict){
-    var msg="Here are the stale issues ..... \n";
+    //var msg="Here are the stale issues ..... \n";
+
     var channels = client.getAllChannels();
     for (var i in client.users){
       if (client.users[i].email==botEmail){
@@ -80,10 +81,13 @@ async function staleIssuesBot(client){
         //console.log(Userid)
         //console.log(Botid)
         if(channels[c].name.includes(Userid) && channels[c].name.includes(Botid)){
-
+          var msg = "";
+          msg = msg +"| Issue ID | Issue title | Assignee |\n";
+          msg = msg+ "| :----- | :---------: | :------: |\n";
           for(var i=0;i<dict[key].length;i++){
-            msg = msg+dict[key][i][0]+"    "+dict[key][i][1]+ "     "+dict[key][i][2]+"\n";
+            msg = msg+" | "+ dict[key][i][0]+" | "+dict[key][i][1]+ " | "+dict[key][i][2]+" | "+"\n";
           }
+          client.postMessage("Here are the stale issues .....",c);
           client.postMessage(msg, c);
           break;
         }

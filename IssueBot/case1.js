@@ -16,7 +16,7 @@ async function getPriority(msg,client)
     var type_weight = 15;
 
     var prio_score = [];
-    var label_prio; 
+    var label_prio;
     var label_status;
     var label_type;
     var label_milestone;
@@ -60,7 +60,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
-      //console.log("issue [",i,"] = ", issue[i]); 
+      //console.log("issue [",i,"] = ", issue[i]);
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
@@ -75,7 +75,7 @@ async function getPriority(msg,client)
                 label_prio = 'High';
             }
             else if (issue[i].labels[j].name.toUpperCase().match(/NORMAL/i))
-            {   
+            {
                 val_prio = prio_normal;
                 label_prio = 'Normal';
             }
@@ -211,14 +211,14 @@ async function getPriority(msg,client)
         //console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
       }
     }
-    
+
     prio_score = prio_score.sort(function(a,b){return a[7] < b[7]});
     var message ="Here are the issues";
     client.postMessage(message,msg.broadcast.channel_id);
     message = "";
     message += "| Issue ID | Issue title | Assignee | Milestone Due | Priority | Status | Issue Type | Priority|\n"
     message += "| :----- | :---------: | :------: | :------: | :------: | :------: | :------: | ----: |\n"
-    
+
     for (var i=0;i<prio_score.length;i++){
       message += "| "
       for(var j=0; j<prio_score[i].length; j++)
