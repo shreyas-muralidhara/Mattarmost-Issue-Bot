@@ -18,6 +18,10 @@ let botEmail = process.env.MMBOTMAIL;
 // Handle all of them with a config file or process.env
 const data = require("./mock.json");
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 async function staleIssuesUser(msg,client){
     // Reassign <issueid> to @Jacob,@Charlie
     // parse the msg variable
@@ -28,12 +32,41 @@ async function staleIssuesUser(msg,client){
     issue_id= data[1]
     assign= data[3]
     owner=process.env.GITOWNER;
+    let issues = await github.getIssuesSince(owner,repo);
     //console.log(issue_id)
     //console.log(assign)
-    let issues = await github.EditIssue(owner,repo,issue_id,assign);
+    var issueId = []
+    let currTime = new Date().getTime();
+    for(var i=0;i< issues.length;i++) {
+    if(currTime-new Date(issues[i].updated_at).getTime()> 24*60*60*1000){
+        if (issues[i].hasOwnProperty('pull_request')==false ){
+          if (issues[i].assignee.login != null){
+                issueId.push(issues[i].number);
+          }
+        }
+    }
+    }
+   // console.log(typeof issueId[1]);
+    // console.log(typeof Number(issue_id));	
+    if (issueId.includes(Number(issue_id))==false){
+        client.postMessage("Invalid issueId!!! Please verify the issueId",msg.broadcast.channel_id);
+	return ;    
+    }
+    flag=0	
+    for (var i in client.users){
+         if(client.users[i].username == assign){
+	         flag=1;
+		 break;
+	 }
+    }
+    if(flag==0){
+        client.postMessage("Have you entered correct assignee? Please verify the assignee username",msg.broadcast.channel_id);
+	    return;
+    }	
+    let editissues = await github.EditIssue(owner,repo,issue_id,assign);
     let channel = msg.broadcast.channel_id;
-    if(issues){
-      client.postMessage("assignee has been successfully changed", channel);
+    if(editissues){
+      client.postMessage("assignee has been changed successfully ", channel);
     }
     else{
       client.postMessage("Problem with the request", channel);
@@ -43,7 +76,7 @@ async function staleIssuesUser(msg,client){
 // issue label change is required
 async function staleIssuesBot(client){
 
-  let issues = await github.getIssuesSince("sghanta",repo);
+  let issues = await github.getIssuesSince(process.env.GITOWNER,repo);
   var dict = {};
   // current time
   let currTime = new Date().getTime();
@@ -64,22 +97,20 @@ async function staleIssuesBot(client){
 }
   //console.log(dict)
   if(Object.keys(dict).length>0){
+	 // console.log(client.users);
   for(var key in dict){
     //var msg="Here are the stale issues ..... \n";
 
     var channels = client.getAllChannels();
     for (var i in client.users){
-      if (client.users[i].email==botEmail){
-        var Botid=client.users[i].id      }
+      if (client.users[i].username==process.env.MMBOTNAME){
+        var Botid=client.users[i].id;      }
       if (client.users[i].username==key){
-        var Userid=client.users[i].id
+        var Userid=client.users[i].id;
       }
     }
     //console.log(dict)
     for (var c in channels){
-        //console.log(channels[c].name)
-        //console.log(Userid)
-        //console.log(Botid)
         if(channels[c].name.includes(Userid) && channels[c].name.includes(Botid)){
           var msg = "";
           msg = msg +"| Issue ID | Issue title | Assignee |\n";
@@ -88,6 +119,7 @@ async function staleIssuesBot(client){
             msg = msg+" | "+ dict[key][i][0]+" | "+dict[key][i][1]+ " | "+dict[key][i][2]+" | "+"\n";
           }
           client.postMessage("Here are the stale issues .....",c);
+	  sleep(1000);
           client.postMessage(msg, c);
           break;
         }

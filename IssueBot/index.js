@@ -21,7 +21,7 @@ async function main()
 {
     console.log(process.env.BOTTOKEN);
     let request = await client.tokenLogin(process.env.BOTTOKEN);
-    //setInterval(case2.staleIssuesBot,15000,client);
+    setInterval(case2.staleIssuesBot,15000,client);
     client.on('message', function(msg)
     {
              if (hears(msg)){
@@ -74,7 +74,7 @@ function msg_parse (msg)
         //add shreyas fuction for changing priority
         else
         {
-          client.postMessage("Please enter the correct data",msg.broadcast.channel_id)
+          client.postMessage("Sorry! I didn't get that.",msg.broadcast.channel_id);
           //print to mattermost channel that the input is wrong
         }
         //if none of the functions are called request user to give proper input
@@ -86,7 +86,9 @@ function msg_parse (msg)
 
 function hears(msg, text)
 {
+	console.log(msg.data.sender_name, bot_name);
   if( msg.data.sender_name.includes(bot_name)) return false;
+
   if( msg.data.post )
   {
 
