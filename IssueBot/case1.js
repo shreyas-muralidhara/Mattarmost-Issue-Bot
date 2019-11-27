@@ -4,11 +4,12 @@ const data = require("./mock.json");
 
 let repo = process.env.MMREPO;
 let bot_name = process.env.MMBOTNAME;
+let owner = process.env.GITOWNER;
 
 async function getPriority(msg,client)
 {
 
-    let issue = await github.getIssuesSince("sghanta",repo);
+    let issue = await github.getIssuesSince(owner,repo);
 
     var time_weight = 35;
     var prio_weight = 35;
@@ -104,7 +105,7 @@ async function getPriority(msg,client)
             else if (issue[i].labels[j].name.toUpperCase().match(/PROGRESS/i))
             {
                 val_status = stat_in_progress;
-                label_status = 'Progress';
+                label_status = 'In-Progress';
             }
             else if (issue[i].labels[j].name.toUpperCase().match(/FIX/i))
             {
@@ -184,7 +185,7 @@ async function getPriority(msg,client)
         else
         {
             var milestoneDue = new Date(issue[i].milestone.due_on).getTime();
-            label_milestone = issue[i].milestone.due_on.substring(0,10);
+            label_milestone = '['+ issue[i].milestone.due_on.substring(0,10) +'](' + issue[i].milestone.url + ')';
         }
 
         if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
@@ -201,14 +202,14 @@ async function getPriority(msg,client)
         if(issue[i].assignee == null)
             var user_assignee = "No assignee";
         else
-            var user_assignee = issue[i].assignee.login;
+        var user_assignee = '['+ issue[i].assignee.login +']('+issue[i].assignee.login+')';
 
         var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
         weight = Number(weight.toFixed(2));
 
-        prio_score[i] = [issue[i].id,issue[i].title,user_assignee,label_milestone,label_prio,label_status,label_type,weight];
+        prio_score[i] = ['['+ issue[i].number +']('+ issue[i].url+')','['+ issue[i].title +']('+ issue[i].url+')',user_assignee,label_milestone,label_prio,label_status,label_type,weight];
 
-        //console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
+        console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
       }
     }
 
