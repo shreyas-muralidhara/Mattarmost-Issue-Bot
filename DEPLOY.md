@@ -1,9 +1,9 @@
 # Milestone: DEPLOYMENT
 
 ## Deployment 
-Run the following Ansible playbook either in a VM running on Ubuntu. 
-This playbook is responsible for the tasks related to setting up Scibot. This installs all the required modules and packages to run the bot, clones the github respository and runs the bot
-
+Run the following Ansible playbook
+deploySetup.yml: This playbook is responsible for the tasks related to setting up the Issuebot. This installs all the required modules and packages to run the bot, clones the github respository and runs the bot. This playbook also triggers a shell script (environment.sh) which is responsible for setting up the environment variables in the deployed environment. 
+Assumption: For successful deployment we are assuming that the user already has mattermost server setup in the VM where playbook 
 ## Acceptance Test 
  To initiate conversation with scibot
 1. Log-in to Mattermost (http://localhost:8085)
@@ -41,8 +41,7 @@ This playbook is responsible for the tasks related to setting up Scibot. This in
 Every issue should have a single assignee.  
 Github username and mattermost username should be same.  
 
+## Exploratory Testing and Code Inspection
 
-# Exploratory Testing and Code Inspection
-
-# Continuous Integration (CI) Server [Bonus]
+## Continuous Integration (CI) Server [Bonus]
 
