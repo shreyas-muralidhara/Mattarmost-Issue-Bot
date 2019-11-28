@@ -1,6 +1,4 @@
 const github = require("./github.js");
-const nock = require("nock");
-const data = require("./mock.json");
 
 let repo = process.env.MMREPO;
 let bot_name = process.env.MMBOTNAME;
