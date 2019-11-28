@@ -8,7 +8,6 @@ let owner = process.env.GITOWNER;
 
 async function getPriority(msg,client)
 {
-
     let issue = await github.getIssuesSince(owner,repo);
 
     var time_weight = 35;
@@ -39,6 +38,7 @@ async function getPriority(msg,client)
     var stat_in_progress = 0.6;
     var stat_fix_committed = 0.25;
     var stat_resolved = 0;
+    
     var stat_incomplete = 1;
     var stat_rejected = 0;
     // default value considered if tag attribute not assigned.
@@ -61,6 +61,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
+      //console.log("issue [",i,"] = ", issue[i]); 
       //console.log("issue [",i,"] = ", issue[i]);
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
@@ -177,39 +178,59 @@ async function getPriority(msg,client)
         }
 
         var currtime = new Date().getTime();
-        if(issue[i].milestone==null)
+        
+        if (issue[i].milestone==null)
         {
             var milestoneDue = 14*24*60*60*1000+currtime;
-            label_milestone = '';
+            var date4 = new Date(milestoneDue)
+            label_milestone = date4.getFullYear()+'-'+ Number(date4.getMonth()+1) +'-'+ date4.getDate() + ' (Unassigned)';
+        }
+        else if(issue[i].milestone.due_on==null)
+        {
+            var milestoneDue = 14*24*60*60*1000+currtime;
+            var date4 = new Date(milestoneDue)
+            label_milestone = date4.getFullYear()+'-'+ Number(date4.getMonth()+1) +'-'+ date4.getDate() + ' (Projected)';
         }
         else
         {
             var milestoneDue = new Date(issue[i].milestone.due_on).getTime();
             label_milestone = '['+ issue[i].milestone.due_on.substring(0,10) +'](' + issue[i].milestone.url + ')';
+            //label_milestone = issue[i].milestone.due_on.substring(0,10)
         }
 
-        if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
+        if (milestoneDue < currtime)
+        {
+          var val_timeDays = 0  
+        }
+        else if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
         {
           var val_timeDays = 100 - ((currtime - new Date(issue[i].created_at).getTime())/(24*60*60*1000));
-          //console.log("case 1 ",issue[i].title);
+          console.log("case 1 ",issue[i].title);
         }
         else
         {
           var val_timeDays= 100 - (((milestoneDue - new Date(issue[i].created_at).getTime())/(24*60*60*1000))*val_status);
-          //console.log("case 2 ", issue[i].title);
+          console.log("case 2 ", issue[i].title);
         }
 
         if(issue[i].assignee == null)
             var user_assignee = "No assignee";
         else
-        var user_assignee = '['+ issue[i].assignee.login +']('+issue[i].assignee.login+')';
+            var user_assignee = '['+ issue[i].assignee.login +']('+issue[i].assignee.login+')';
 
-        var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
-        weight = Number(weight.toFixed(2));
+        if(val_timeDays != 0) 
+        {   
+            var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
+            weight = Number(weight.toFixed(2));
+            console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
+        }
+        else
+        {
+            weight = 'Milestone Overdue'
+        }
 
         prio_score[i] = ['['+ issue[i].number +']('+ issue[i].url+')','['+ issue[i].title +']('+ issue[i].url+')',user_assignee,label_milestone,label_prio,label_status,label_type,weight];
 
-        console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
       }
     }
 
@@ -226,6 +247,7 @@ async function getPriority(msg,client)
            message += prio_score[i][j] + " | ";
       message += "\n"
     }
+    console.log('message is',message)
     client.postMessage(message,msg.broadcast.channel_id);
 }
 
