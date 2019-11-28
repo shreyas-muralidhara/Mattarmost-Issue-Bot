@@ -1,7 +1,8 @@
 # Milestone: DEPLOYMENT
 
-## Deployment Procedure
+## Deployment 
 Run the following Ansible playbook either in a VM running on Ubuntu. 
+This playbook is responsible for the tasks related to setting up Scibot. This installs all the required modules and packages to run the bot, clones the github respository and runs the bot
 
 ## Acceptance Test 
  To initiate conversation with scibot
@@ -33,12 +34,15 @@ Run the following Ansible playbook either in a VM running on Ubuntu.
    
 
 ### UseCase3
-
+1) The bot will displau the list of   
 
 
 ## Assumptions  
 Every issue should have a single assignee.  
 Github username and mattermost username should be same.  
 
-    
+
+# Exploratory Testing and Code Inspection
+
+# Continuous Integration (CI) Server [Bonus]
 
