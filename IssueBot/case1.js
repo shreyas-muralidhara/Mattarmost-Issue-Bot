@@ -59,7 +59,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
-      console.log("issue [",i,"] = ", issue[i]); 
+      //console.log("issue [",i,"] = ", issue[i]); 
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
@@ -202,12 +202,12 @@ async function getPriority(msg,client)
         else if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
         {
           var val_timeDays = 100 - ((currtime - new Date(issue[i].created_at).getTime())/(24*60*60*1000));
-          console.log("case 1 ",issue[i].title);
+          //console.log("case 1 ",issue[i].title);
         }
         else
         {
           var val_timeDays= 100 - (((milestoneDue - new Date(issue[i].created_at).getTime())/(24*60*60*1000))*val_status);
-          console.log("case 2 ", issue[i].title);
+          //console.log("case 2 ", issue[i].title);
         }
 
         if(issue[i].assignee == null)
@@ -219,7 +219,7 @@ async function getPriority(msg,client)
         {   
             var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
             weight = Number(weight.toFixed(2));
-            console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
+            //console.log("weight ",weight,"issue: ",val_timeDays.toFixed(2),"Prio value: ",val_prio," status value: ",val_status," Issue type value: ",val_issue_type);
         }
         else
         {
@@ -232,7 +232,7 @@ async function getPriority(msg,client)
     }
 
     prio_score = prio_score.sort(function(a,b){return a[7] < b[7]});
-    var message ="Here are the issues";
+    var message = "To update issue attributes, request format - Update <attribute> for <issue ID/title> to <attribute value> \n" +"Here are the issues:";
     client.postMessage(message,msg.broadcast.channel_id);
     message = "";
     message += "| Issue ID | Issue title | Assignee | Milestone Due | Priority | Status | Issue Type | Priority|\n"
@@ -244,7 +244,7 @@ async function getPriority(msg,client)
            message += prio_score[i][j] + " | ";
       message += "\n"
     }
-    console.log('message is',message)
+    setTimeout(() => { console.log(""); }, 10000)
     client.postMessage(message,msg.broadcast.channel_id);
 }
 
@@ -252,7 +252,6 @@ async function updateMilestone(msg,client)
 {
 
   let issue = await github.getIssuesSince(owner,repo);
-  var message = JSON.parse(msg.data.post).message;
   let data = message.split("for");
   var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
   var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
@@ -276,8 +275,8 @@ async function updateMilestone(msg,client)
          issueid = issue[i].number;
       }
 
-  console.log(mileflag,issueflag);
-  console.log(issueid,milestoneid);
+  //console.log(mileflag,issueflag);
+  //console.log(issueid,milestoneid);
    
   if (issueflag == true && mileflag == true)
       if(await github.EditIssueMileStone(owner,repo,issueid,milestoneid))
@@ -293,21 +292,140 @@ async function updateMilestone(msg,client)
   
 }
 
-/*async function updateLabels(msg,client)
+async function updateLabels(msg,client)
 {
 
   let issue = await github.getIssuesSince(owner,repo);
   var message = JSON.parse(msg.data.post).message;
+
   let data = message.split("for");
   var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
-  var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
+  var labelval = message.split("for")[1].split("to ")[1].toUpperCase();
 
+  console.log(issueid,labelval)
   var labels = "";
   var issueflag = false;
-  var mileflag = false;
+  var labels = [];
+  var labelres = [];
+  var labelflag = false;
 
-}*/
+  for (var i=0;i < issue.length; i++)
+  if(issueid == issue[i].number || issueid == issue[i].title.toUpperCase())
+  {
+     issueflag = true;
+     issueid = issue[i].number;
+     for (var j=0; j < issue[i].labels.length; j++)
+        labels.push(issue[i].labels[j].name)
+  }
+  if(issueflag == false)
+      client.postMessage("Issue id/title does not exist",msg.broadcast.channel_id);
+ 
+  //console.log(labels)
+
+  if(message.toUpperCase().match(/PRIORITY/i))
+  {
+    if(labelval.match(/HIGH|NORMAL|LOW/i))
+    {
+        labelflag = true;
+        for(var i =0; i<labels.length; i++)
+            if (!(labels[i].match(/HIGH|NORMAL|LOW/i)))
+                labelres.push(labels[i]);
+        
+        if (labelval.match(/HIGH/i))
+            labelres.push('Piority:High')
+        else if(labelval.match(/NORMAL/i))
+            labelres.push('Priority:Normal')
+        else if(labelval.match(/LOW/i))
+            labelres.push('Priority:Low')
+
+        //console.log(labelres)
+
+        if(await github.EditIssueLabel(owner,repo,issueid,labelres))
+            client.postMessage("Priority is updated successfully. ",msg.broadcast.channel_id);
+        else
+            client.postMessage("Problem with updating priority",msg.broadcast.channel_id);
+
+    }
+    else
+        client.postMessage("Not a valid priority.",msg.broadcast.channel_id);
+  }
+
+
+  else if(message.toUpperCase().match(/STATUS/i))
+  {
+    if(labelval.match(/COMMITTED|CONFIRMED|CREATED|DEFERRED|INCOMPLETE|IN-PROGRESS|REJECTED|RESOLVED/i))
+    {
+        labelflag = true;
+        for(var i =0; i<labels.length; i++)
+            if (!(labels[i].match(/COMMITTED|CONFIRMED|CREATED|DEFERRED|INCOMPLETE|INPROGRESS|REJECTED|RESOLVED/i)))
+                labelres.push(labels[i]);
+        
+        if (labelval.match(/COMMITTED/i))
+            labelres.push('Status: Committed')
+        else if(labelval.match(/CONFIRMED/i))
+            labelres.push('Status: Confirmed')
+        else if(labelval.match(/CREATED/i))
+            labelres.push('Status: Created')
+        else if(labelval.match(/DEFERRED/i))
+            labelres.push('Status: Deferred')
+        else if(labelval.match(/INCOMPLETE/i))
+            labelres.push('Status: Incomplete')
+        else if(labelval.match(/IN-PROGRESS/i))
+            labelres.push('Status: InProgress')
+        else if(labelval.match(/REJECTED/i))
+            labelres.push('Status: Rejected')
+        else if(labelval.match(/RESOLVED/i))
+            labelres.push('Status: Resolved')
+        //console.log(labelres)
+
+        if(await github.EditIssueLabel(owner,repo,issueid,labelres))
+            client.postMessage("Status is updated successfully. ",msg.broadcast.channel_id);
+        else
+            client.postMessage("Problem with updating Status",msg.broadcast.channel_id);
+
+    }
+    else
+        client.postMessage("Not a valid Status.",msg.broadcast.channel_id);
+  }
+
+  
+  else if(message.toUpperCase().match(/ISSUE TYPE/i))
+  {
+    if(labelval.match(/BUG|FEATURE|IDEA|INVALID|SUPPORT|TASK/i))
+    {
+        labelflag = true;
+        for(var i =0; i<labels.length; i++)
+            if (!(labels[i].match(/BUG|FEATURE|IDEA|INVALID|SUPPORT|TASK/i)))
+                labelres.push(labels[i]);
+        
+        if (labelval.match(/BUG/i))
+            labelres.push('Type: Bug')
+        else if(labelval.match(/FEATURE/i))
+            labelres.push('Type: Feature')
+        else if(labelval.match(/IDEA/i))
+            labelres.push('Type: Idea')
+        else if(labelval.match(/INVALID/i))
+            labelres.push('Type: Invalid')
+        else if(labelval.match(/SUPPORT/i))
+            labelres.push('Type: Support')
+        else if(labelval.match(/TASK/i))
+            labelres.push('Type: Task')
+ 
+        //console.log(labelres)
+
+        if(await github.EditIssueLabel(owner,repo,issueid,labelres))
+            client.postMessage("Issue Type is updated successfully. ",msg.broadcast.channel_id);
+        else
+            client.postMessage("Problem with updating Issue Type",msg.broadcast.channel_id);
+
+    }
+    else
+        client.postMessage("Not a valid Issue Type.",msg.broadcast.channel_id);
+  }
+  else 
+    client.postMessage("Not a valid attribute",msg.broadcast.channel_id);
+}
 
 exports.getPriority = getPriority;
 exports.updateMilestone = updateMilestone;
-//exports.updateLabels = updateLabels;
+exports.updateLabels = updateLabels;

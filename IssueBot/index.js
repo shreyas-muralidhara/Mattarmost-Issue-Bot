@@ -37,7 +37,7 @@ function msg_parse (msg)
     {
 
         let post = JSON.parse(msg.data.post);
-        let data = post.message.toLowerCase().split(" ").toLowerCase();
+        let data = post.message.toLowerCase().split(" ");
         console.log(data);
         if( (data.includes("hard") || data.includes("medium") || data.includes("easy")) && (data.includes("have") ||data.includes("create") || data.includes("new")) && data.includes("issue"))
          {

@@ -1,7 +1,7 @@
 const got  = require('got');
 const request = require('request');
 var config ={}
-config.token = process.env.GITHUBTOKEN;
+config.token = process.env.GITTOKEN;
 const urlRoot = "https://github.ncsu.edu/api/v3";
 //https://api.github.com
 async function getIssuesSince(owner, repo) {
