@@ -59,8 +59,7 @@ async function getPriority(msg,client)
 
     for (var i = 0; i < issue.length; i++)
     {
-      //console.log("issue [",i,"] = ", issue[i]); 
-      //console.log("issue [",i,"] = ", issue[i]);
+      console.log("issue [",i,"] = ", issue[i]); 
       //Consider only open issues for Priority ordering
       if(issue[i].state == "open" && issue[i].hasOwnProperty('pull_request') == false)
       {
@@ -192,8 +191,8 @@ async function getPriority(msg,client)
         else
         {
             var milestoneDue = new Date(issue[i].milestone.due_on).getTime();
-            label_milestone = '['+ issue[i].milestone.due_on.substring(0,10) +'](' + issue[i].milestone.url + ')';
-            //label_milestone = issue[i].milestone.due_on.substring(0,10)
+            //label_milestone = '['+ issue[i].milestone.due_on.substring(0,10) +'](' + issue[i].milestone.url + ')';
+            label_milestone = issue[i].milestone.due_on.substring(0,10) + ' (' + issue[i].milestone.title + ')'
         }
 
         if (milestoneDue < currtime)
@@ -214,8 +213,8 @@ async function getPriority(msg,client)
         if(issue[i].assignee == null)
             var user_assignee = "No assignee";
         else
-            var user_assignee = '['+ issue[i].assignee.login +']('+issue[i].assignee.login+')';
-
+            //var user_assignee = '['+ issue[i].assignee.login +']('+issue[i].assignee.url+')';
+            var user_assignee = issue[i].assignee.login
         if(val_timeDays != 0) 
         {   
             var weight = ((val_timeDays/100) * time_weight) + (val_prio * prio_weight) + (val_status * status_weight) + (val_issue_type * type_weight);
@@ -226,9 +225,9 @@ async function getPriority(msg,client)
         {
             weight = 'Milestone Overdue'
         }
-
-        prio_score[i] = ['['+ issue[i].number +']('+ issue[i].url+')','['+ issue[i].title +']('+ issue[i].url+')',user_assignee,label_milestone,label_prio,label_status,label_type,weight];
-
+        var issue_ID = '['+ issue[i].number +']('+ issue[i].url+')'
+        //prio_score[i] = ['['+ issue[i].number +']('+ issue[i].url+')','['+ issue[i].title +']('+ issue[i].url+')',user_assignee,label_milestone,label_prio,label_status,label_type,weight];
+        prio_score[i] = ['['+ issue[i].number +']('+ issue[i].url+')',issue[i].title,user_assignee,label_milestone,label_prio,label_status,label_type,weight];
       }
     }
 
@@ -249,38 +248,66 @@ async function getPriority(msg,client)
     client.postMessage(message,msg.broadcast.channel_id);
 }
 
-async function updatePrio(msg,client)
+async function updateMilestone(msg,client)
 {
 
-  let issue = await github.getIssuesSince("sghanta",repo);
+  let issue = await github.getIssuesSince(owner,repo);
   var message = JSON.parse(msg.data.post).message;
+  let data = message.split("for");
+  var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
+  var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
 
   var labels = "";
-  var flag = false;
+  var issueflag = false;
+  var mileflag = false;
 
-  console.log("echo message",message.substring(24));
-
+  let m = await github.getMilestone(owner,repo);
+  for (var i=0;i < m.length; i++)
+      if(milestoneid == m[i].number || milestoneid== m[i].title.toUpperCase())
+      {
+         mileflag = true;
+         milestoneid = m[i].number;
+      }
+  
   for (var i=0;i < issue.length; i++)
-  {
-    if(issue[i].title == message.substring(24))
-    {
-      flag = true;
+      if(issueid == issue[i].number || issueid == issue[i].title.toUpperCase())
+      {
+         issueflag = true;
+         issueid = issue[i].number;
+      }
 
-      for(var j=0;j < issue[i].labels.length; j++)
-        labels += issue[i].labels[j].name + "\t";
-    }
-  }
-  var print ="";
-  console.log("labels",labels,"flag",flag);
-  if (flag == true && labels == null)
-      print += "no labels assigned for this issue";
-  else if (flag == false)
-      print += "Issue title does not exist"
-  else
-      print += "These are the labels currently set for the issues:\n" + labels +"\n\nProvide the labels in following format\" change issue <attribute> <new label> <old label>\"";
+  console.log(mileflag,issueflag);
+  console.log(issueid,milestoneid);
+   
+  if (issueflag == true && mileflag == true)
+      if(await github.EditIssueMileStone(owner,repo,issueid,milestoneid))
+          client.postMessage("Milestone is updated successfully. ",msg.broadcast.channel_id);
+      else
+          client.postMessage("Problem with updating milestone",msg.broadcast.channel_id);
 
-  client.postMessage(print,msg.broadcast.channel_id);
+  else if(issueflag == false)
+      client.postMessage("Issue id/title does not exist",msg.broadcast.channel_id);
+    
+  else if(issueflag == true && mileflag == false)
+      client.postMessage("Milestone id/title does not exist",msg.broadcast.channel_id);
+  
 }
 
+/*async function updateLabels(msg,client)
+{
+
+  let issue = await github.getIssuesSince(owner,repo);
+  var message = JSON.parse(msg.data.post).message;
+  let data = message.split("for");
+  var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
+  var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
+
+  var labels = "";
+  var issueflag = false;
+  var mileflag = false;
+
+}*/
+
 exports.getPriority = getPriority;
-exports.updatePrio = updatePrio;
+exports.updateMilestone = updateMilestone;
+//exports.updateLabels = updateLabels;
