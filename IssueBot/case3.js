@@ -22,10 +22,12 @@ class Case3{
     this.owner = process.env.GITOWNER;
     this.issuelabel="";
     this.createlist={};
+    this.milestone="";
     this.channelid;
   }
   // create Issue;
   async createIssue(msg){
+      
     var data = JSON.parse(msg.data.post).message;
     let splitData = data.split(" ");
     //var issue_label = "";
@@ -42,7 +44,14 @@ class Case3{
     }
     if(this.issuelabel!=""){
       this.channelid=msg.broadcast.channel_id;
-      this.client.postMessage("list issue attributes to create the issue",msg.broadcast.channel_id);
+      this.client.postMessage("Sure....\n List the attributes in the following format..\n *** \n ```title: <Title of the issue>\n body: <Body of the title> \n labels: <labels seperated with comma eg: label1,label2,label3> \n milestone: <milestone name> ```\n *** \n After entering the attributes type **done listing attributes** to see the recommended assignees",msg.broadcast.channel_id);
+      this.createlist = {
+      "title": null,
+    "body": "",
+    "milestone": null,
+    "labels": [],
+    "assignees":[]
+      }	    
     }
   }
   async getAttributes(msg){
@@ -51,38 +60,47 @@ class Case3{
       this.client.postMessage("Haven't mentioned about the type of the issue",this.channelid);
       return;
     }
+    //console.log("entered into getAttributes",this.createlist);	  
+    /*	  
     var create = {
     "title": "",
     "body": "",
     "milestone": "",
     "labels": [],
     "assignees":[]
-  };
-    var data = JSON.parse(msg.data.post).message;
-    // Data parsing
-    let temp_issue = data.split(";");
-    create.title = temp_issue[1];
-    create.body = temp_issue[2];
-    let milestoneTitle = temp_issue[3];
-    create.milestone = -1;
-    create.labels = [this.issuelabel];
-    this.createlist=create;
-
+  };*/
+    /*	  
+     */
      // const miles = nock("https://api.github.com")
      //     .get("/repos/testuser/Hello-World/milestones")
      //     .reply(200, JSON.stringify(issueData.milestone));
+     
+    if(!this.createlist.title || this.milestone=="" ){
+    this.client.postMessage("Unable to get the required the attributes",this.channelid);
+     return;
+    }
     var due_on = "";
     var milestones = await github.getMilestone(this.owner,this.repo);
     //console.log(milestones);
     if(milestones===null){
       return;
     }
+    // milestone title mismatch	   
+    var flag1=0;
+    //this.milestone="Deployment milestone"
     for(var i=0;i<milestones.length;i++){
-      if(milestones[i].title==milestoneTitle){
+      if(milestones[i].title==this.milestone){
         due_on = milestones[i].due_on;
-        create.milestone = milestones[i].number;
+	//console.log(milestones[i].title, this.milestone,"in if loop");
+        this.createlist.milestone = milestones[i].number;
+	flag1=1;
       }
     }
+    if(flag1==0){
+    this.client.postMessage("Milestone title not found",this.channelid);
+    return;
+    }	  
+    //console.log(this.createlist.milestone,"in the loop");	  
     if(new Date(due_on).getTime() < new Date().getTime()){
       this.client.postMessage("The milestone due date is already over!!!!",this.channelid);
       return;
@@ -123,9 +141,9 @@ class Case3{
     var closed_li = await github.getIssueswithState(this.owner,this.repo,"closed",users[x].login);
 
       for (var i=0;i<closed_li.length;i++){
-        var weight=0;
         if(currTime-new Date(closed_li[i].closed_at).getTime() <= 30*24*60*60*1000){
           //accessing only the last 30 issues.
+        var weight=0;
         for(var j=0;j<closed_li[i].labels.length;j++){
           if(closed_li[i].labels[j].name.includes("Hard") == true){
             weight = 80;
@@ -140,6 +158,9 @@ class Case3{
               break;
           }
         }
+        if(weight==0){
+		weight = 25; // default weight is set as 25
+	}
         Closedweight+= weight;
       }
     }
@@ -154,12 +175,15 @@ class Case3{
     for (var i=0;i<open_li.length;i++){
       var weight=0;
       var flag=0;
-      var days = (new Date(open_li[i].milestone.due_on).getTime() - currTime)/(24*60*60*1000);
+      if (open_li[i].hasOwnProperty('milestone')==false && open_li[i].milestone.due_on !=null){
+         var days = (new Date(open_li[i].milestone.due_on).getTime() - currTime)/(24*60*60*1000);
+      }else{
+	 var days = 14 // default days = 14     
+      }	    
       if(days<=0){
-        continue;
+        continue;  // tackle this ....... Remember to close this issues which crossed the deadline to get better accuracy
       }
       for(var j=0;j<open_li[i].labels.length;j++){
-
         if(open_li[i].labels[j].name.includes("Hard") == true && weight<80){
           weight = 80;
         }
@@ -173,13 +197,17 @@ class Case3{
           flag=1;
         }
         else if(open_li[i].labels[j].name.includes("Rejected") == true){
-          weight=0;
+          flag=3
+	  weight=0;
           break;
         }
         else if(open_li[i].labels[j].name.includes("Resolved") == true && (currTime-new Date(open_li[i].updated_at).getTime() <= 30*24*60*60*1000)){
           flag=2;
         }
       }
+	  if(weight==0 && flag!=3){
+	        weight = 25 // assuming it is an easy issue
+	  }
           if(flag==1){
             weight = weight/2.0;
           }
@@ -200,11 +228,12 @@ class Case3{
           temp_weight=25;
         }
         if(Closedweight==0){
-          Closedweight=80;
+          Closedweight=80; // Default value atleast the user will do 
         }
         performance_metric=Closedweight/30;
 
         var tdays = (new Date(due_on).getTime()-currTime)/(24*60*60*1000);
+	
         var workload_metric=Openweight+(temp_weight)/(tdays);
         console.log(performance_metric,workload_metric,u);
       if (performance_metric > workload_metric){
@@ -215,6 +244,7 @@ class Case3{
       //console.log(user_li,"The loop ended!!!!");
       return user_li;
   }
+
   async createAPI(msg){
     // const con = nock("https://api.github.com")
     //     .post("/repos/testuser/Hello-World/issues/",JSON.stringify(createlist))
@@ -226,22 +256,85 @@ class Case3{
   //   "labels": [],
   //   "assignees":[]
   // };
+    	  
     var data = JSON.parse(msg.data.post).message;
     let splitData = data.split(" ");
     if (this.createlist.hasOwnProperty('assignees')==false){
       this.client.postMessage("Context is not found",msg.broadcast.channel_id);
       return;
     }
+    	  
+    var flag=0
+    for (var i in this.client.users){
+         if(this.client.users[i].username == splitData[3]){
+                 flag=1;
+                 break;
+         }
+    }
+    if(flag==0){
+        this.client.postMessage("Have you entered correct assignee? Please verify the assignee username",msg.broadcast.channel_id);
+            return;
+    }
+    	  
     this.createlist.assignees.push(splitData[3]);
     var iss = await github.createIssue(this.owner,this.repo,this.createlist);
+    console.log(iss);
     if(iss.hasOwnProperty('id')==true){
      this.client.postMessage("Issue is created",msg.broadcast.channel_id);
     }
+    else{
+    this.client.postMessage("Something went wrong..",msg.broadcast.channel_id);
+    }
+
   }
+
+
+
+async assignTitle(msg){
+     let post = JSON.parse(msg.data.post);
+     let data = post.message.split(":");
+     this.createlist.title = data[1];
+     return;
+}
+async assignBody(msg){
+     
+     let post = JSON.parse(msg.data.post);
+     let data = post.message.split(":");
+     this.createlist.body = data[1];
+     return;	
+}
+async assignLabels(msg){
+	let post = JSON.parse(msg.data.post);
+	let data = post.message.split(":");
+	var mainmsg =""
+	for(var i=1;i<data.length;i++){
+		if(i!=data.length-1){
+		mainmsg = mainmsg+data[i];
+		}
+		else{
+			mainmsg = mainmsg+data[i];
+		}
+	}
+	var labels = []
+	if(mainmsg!=""){
+	let templabels = mainmsg.split(',');
+	for(var i=0;i<templabels.length;i++){
+		labels.push(templabels[i].trim());
+	}
+	}
+	this.createlist.labels = labels;
+	this.createlist.labels.push(this.issuelabel);
+
+	return ;
+}
+async assignMilestone(msg){
+     	let post = JSON.parse(msg.data.post);
+        let data = post.message.split(":");
+        this.milestone = data[1].trim();
 
 }
 
-
+}
 // see about the empty labels
 
 

@@ -52,7 +52,7 @@ async function staleIssuesUser(msg,client){
         client.postMessage("Invalid issueId!!! Please verify the issueId",msg.broadcast.channel_id);
 	return ;    
     }
-    flag=0	
+    var flag=0	
     for (var i in client.users){
          if(client.users[i].username == assign){
 	         flag=1;
