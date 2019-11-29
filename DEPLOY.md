@@ -1,7 +1,7 @@
 # Milestone: DEPLOYMENT
 
 ## Deployment 
-Run the following Ansible playbook [deploysetup.yml] on a VM with Ubuntu OS either in local machine or Public Cloud. 
+Run the following Ansible playbook [deploysetup.yml] to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
 This playbook is responsible for the tasks related to setting up Issuebot. This installs all the required modules, clones the github respository and runs the bot.  
 The playbook also runs a shell script [environment.sh] which is responsible for setting the environment variables in the deployed environment.  
 
