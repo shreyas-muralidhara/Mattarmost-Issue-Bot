@@ -11,12 +11,13 @@ This playbook is responsible for the tasks related to setting up Scibot. This in
 3. #?? If you are logging in as admin please use "seprojecta17@gmail.com" as mail id with "seprojecta2017" as the password.
 3. After sucessfully logging-in navigate to issuebot channel and execute the test cases given in the acceptance test plan below.
 
+
 ### UseCase1           
 
 
 
 ### UseCase2 
- 1) The bot will display the list of stale issue once everyday (morning) but to ease testing, we have modified the bot to display stale issue list once every 15 mins.  
+ 1) The bot will display the list of stale issues to issue owners once every 24 hours.  
   Sample Input: -  
   Sample Output:   
   ![Use case2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-896e-fe0cb5583c71)    
