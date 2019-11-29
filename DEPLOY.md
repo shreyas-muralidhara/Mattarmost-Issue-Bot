@@ -1,13 +1,14 @@
 # Milestone: DEPLOYMENT
 
 ## Deployment 
-Run the following Ansible playbook either in a VM running on Ubuntu. 
-This playbook is responsible for the tasks related to setting up Scibot. This installs all the required modules and packages to run the bot, clones the github respository and runs the bot
+Run the following Ansible playbook [deploysetup.yml] on a VM with Ubuntu OS either in local machine or Public Cloud. 
+This playbook is responsible for the tasks related to setting up Issuebot. This installs all the required modules, clones the github respository and runs the bot.  
+The playbook also runs a shell script [environment.sh] which is responsible for setting the environment variables in the deployed environment.  
 
 ## Acceptance Test 
  To initiate conversation with issuebot
 1. Log-in to Mattermost (http://34.66.158.171:8065)
-2. Enter "sghanta" as the username with "Kakashihatake@97"|| Issuebot@11 as the password for logging in.
+2. Enter "sghanta" as the username with "Issuebot@11" as the password for logging in.
 3. After sucessfully logging-in navigate to issuebot channel and execute the test cases given in the acceptance test plan below.
 
 We have added the instructor and TAs as collaborators to our "CSC510-11Test" repo. This is currently linked to the mattermost account and any operations performed by the user will reflect in changes in this Repository.   
