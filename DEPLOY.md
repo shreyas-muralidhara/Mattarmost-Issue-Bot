@@ -5,12 +5,12 @@ Run the following Ansible playbook either in a VM running on Ubuntu.
 This playbook is responsible for the tasks related to setting up Scibot. This installs all the required modules and packages to run the bot, clones the github respository and runs the bot
 
 ## Acceptance Test 
- To initiate conversation with scibot
-1. Log-in to Mattermost (http://localhost:8085)
-2. #?? Enter "seproject17@gmail.com" as the mail id with "SEProject2017" as the password for logging in.
-3. #?? If you are logging in as admin please use "seprojecta17@gmail.com" as mail id with "seprojecta2017" as the password.
+ To initiate conversation with issuebot
+1. Log-in to Mattermost (http://34.66.158.171:8065)
+2. Enter "sghanta" as the username with "Kakashihatake@97"|| Issuebot@11 as the password for logging in.
 3. After sucessfully logging-in navigate to issuebot channel and execute the test cases given in the acceptance test plan below.
 
+We have added the instructor and TAs as collaborators to our "CSC510-11Test" repo. This is currently linked to the mattermost account and any operations performed by the user will reflect in changes in this Repository.   
 
 ### UseCase1           
 
