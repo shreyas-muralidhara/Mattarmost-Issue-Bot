@@ -36,13 +36,30 @@ We have added the instructor and TAs as collaborators to our "CSC510-11Test" rep
    
 
 ### UseCase3
-1) The bot will displau the list of   
+1) The bot will displau the list of recomended users 
+  Sample Input: Recommend assignees who can work on "easy" issue
+  Sample Output:   
+  ![case3 1](https://media.github.ncsu.edu/user/11865/files/f61dd500-12cc-11ea-8540-b52ee09f3f50)
 
+2) User will enter issue attributes and bot will display list of users
+  Sample Input:
+  Sample Output:
+ ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b)
+  - Title and milestone are mandatory  
 
+3) User can assign this issue to his team member
+  Sample Input:
+  Sample Output:
+  ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
+
+We have handled edge case:  
+If the issue does not have 
+![case3 4](https://media.github.ncsu.edu/user/11865/files/48f88c00-12cf-11ea-92d2-ccb3d5841617)  
+ 
 ## Assumptions  
 Every issue should have a single assignee.  
 Github username and mattermost username should be same.  
-
+If issue does not have weight we have assumed it to be an easy issue
 
 # Exploratory Testing and Code Inspection
 
