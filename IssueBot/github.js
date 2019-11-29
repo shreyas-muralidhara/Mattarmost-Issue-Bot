@@ -49,6 +49,43 @@ async function EditIssue(owner,repo,issueNumber,assignees) {
 	let issues = (await got(url, options)).body;
 	return issues;
 }
+
+async function EditIssueMileStone(owner,repo,issueNumber,mileid) {
+	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/"+issueNumber;
+	const postbody = {
+	"milestone": mileid
+	  };
+	const options = {
+		  method: 'PATCH',
+		  headers: {
+			  "content-type": "application/json",
+			  "Authorization": `token ${config.token}`
+		  },
+	  body: JSON.stringify(postbody)
+	  };
+	  // Send a http request to url
+	  let issues = (await got(url, options)).body;
+	  return issues;
+  }
+
+async function EditIssueLabel(owner,repo,issueNumber,labellist) {
+	const url = urlRoot + "/repos/" + owner + "/" + repo + "/issues/"+issueNumber;
+	const postbody = {
+	"labels": labellist
+	  };
+	const options = {
+		  method: 'PATCH',
+		  headers: {
+			  "content-type": "application/json",
+			  "Authorization": `token ${config.token}`
+		  },
+	  body: JSON.stringify(postbody)
+	  };
+	  // Send a http request to url
+	  let issues = (await got(url, options)).body;
+	  return issues;
+  }
+
 async function getCollaborators(owner,repo){
   const url = urlRoot + "/repos/" + owner + "/" + repo + "/collaborators";
 	const options = {
@@ -140,3 +177,5 @@ exports.getIssueswithState = getIssueswithState;
 exports.getCollaborators = getCollaborators;
 exports.getIssuesSince = getIssuesSince;
 exports.EditIssue = EditIssue;
+exports.EditIssueMileStone = EditIssueMileStone;
+exports.EditIssueLabel = EditIssueLabel;

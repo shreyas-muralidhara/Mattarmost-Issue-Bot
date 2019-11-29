@@ -88,11 +88,14 @@ function msg_parse (msg)
         {
             return case1.getPriority(msg,client);
         }
-        else if(data.includes("show")||data.includes("display") && (data.includes("priority")))
+        else if(data.includes("for") && data.includes("to") && data.includes("milestone") && (data.includes("update")))
         {
-           return case1.updatePrio(msg,client);
+           return case1.updateMilestone(msg,client);
         }
-        //add shreyas fuction for changing priority
+        else if(data.includes("for") && data.includes("to") && (data.includes("priority") || data.includes("status") || data.includes("type")) && (data.includes("update")))
+        {
+           return case1.updateLabels(msg,client);
+        }
         else
         {
           client.postMessage("Sorry! I didn't get that.",msg.broadcast.channel_id);
