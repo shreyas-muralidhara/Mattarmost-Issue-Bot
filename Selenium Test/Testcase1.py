@@ -1,4 +1,5 @@
 from  selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from  selenium.common.exceptions import TimeoutException
 import time
 import os
@@ -17,57 +18,44 @@ def UseCase1(Flow):
         else:
             print("Error while displaying issues")
             exit(0)
-
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
-        if (Flow==1):
-            bottomText.send_keys("update the priority for Shreyas2")
-        else:
-            bottomText.send_keys("update the priority for selenium test")
+        bottomText.send_keys("update the priority for #999 to Normal")
         bottomText.submit()
         time.sleep(1)
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
-        if (Flow==1):
-            if "labels" in  (lastfield[len(lastfield)-1].text):
-                print ("Successfully displayed list of issue attributes")
-            else:
-                print("Error while displaying attributes")
-                exit(0)
+        if "exist" in  (lastfield[len(lastfield)-1].text):
+            print ("Issue Id does not exist")
         else:
-            if "does not exist" in  (lastfield[len(lastfield)-1].text):
-                print ("Issue title does not exist")
-            else:
-                print("Error while assigning the title")
-                exit(0)
-        if (Flow==1):
-            time.sleep(1)
-            bottomText = browser.find_element_by_id("post_textbox")
-            bottomText.send_keys("change issue priority Normal to High")
-            bottomText.submit()
-            time.sleep(1)
-            lastfield=[]
-            lastfield = browser.find_elements_by_class_name("post-message__text")
-            if "updated" in  (lastfield[len(lastfield)-1].text):
-                print ("Successfully updated the labels")
-            else:
-                print("Error while updating the labels")
-                exit(0)
+            print("Error")
+            exit(0)   
+        time.sleep(1)
+        bottomText = browser.find_element_by_id("post_textbox")
+        bottomText.send_keys("update status for #51 to implemented")
+        bottomText.submit()
+        time.sleep(1)
+        lastfield=[]
+        lastfield = browser.find_elements_by_class_name("post-message__text")
+        if "valid" in  (lastfield[len(lastfield)-1].text):
+            print ("Not a valid Status")
+        else:
+            print("Error")
+            exit(0)
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+browser = webdriver.Chrome('/usr/bin/chromedriver',options=chrome_options)
+browser.get("http://34.66.158.171:8065/bot/messages/@issuebot")
 
-browser = webdriver.Chrome('/usr/bin/chromedriver')
-browser.get("http://localhost:8065/se-team/messages/@testbot")
-time.sleep(2)
+time.sleep(5)
 username = browser.find_element_by_id("loginId")
 password = browser.find_element_by_id("loginPassword")
 submit   = browser.find_element_by_id("loginButton")
-username.send_keys(os.environ['USEREMAIL'])
-password.send_keys(os.environ['USERPASS'])
+username.send_keys('sghanta')
+password.send_keys('Issuebot@11')
 submit.submit()
 
 
 Flow=1
-UseCase1(Flow)
-
-Flow=0
 UseCase1(Flow)
 
