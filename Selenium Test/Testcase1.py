@@ -28,7 +28,7 @@ def UseCase1(Flow):
         if "exist" in  (lastfield[len(lastfield)-1].text):
             print ("Issue Id does not exist")
         else:
-            print("Error")
+           # print("Error")
             exit(0)   
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
