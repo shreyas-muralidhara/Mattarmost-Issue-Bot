@@ -19,12 +19,12 @@ We have added the instructor and TAs as collaborators to our "CSC510-11Test" rep
 
 ### UseCase2 
  1) The bot will display the list of stale issues to issue owners once every 24 hours.  
-  Sample Input: -  
+  Sample Input: < no input >  
   Sample Output:   
   ![Use case2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-896e-fe0cb5583c71)    
 
  2) Now the user can reassign the issue to another assignee.  
-  Trigger Words: Reassign  
+  Request Format: Reassign < issue id > to < username >  
   Sample Input: Reassign 37 to sghanta  
   Sample Output: Assignee has been successfully changed  
   ![usecase2 1](https://media.github.ncsu.edu/user/11865/files/8c64c600-1128-11ea-95f2-3c6375643579)
@@ -33,26 +33,26 @@ We have added the instructor and TAs as collaborators to our "CSC510-11Test" rep
   If the issue owner tries to reassign the issue to an assignee who does not exist  
    ![usecase2 2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-904c-9973cff624b6)  
   If the issue owner tries to reassign an invalid issue id  
-   
+  
 
 ### UseCase3
-1) The bot will displau the list of recomended users 
+1) The user can ask the bot to recomended assignees for a new issue
+  Request Format: Recommend assignees who can work on "< difficulty >" issue
   Sample Input: Recommend assignees who can work on "easy" issue
   Sample Output:   
   ![case3 1](https://media.github.ncsu.edu/user/11865/files/f61dd500-12cc-11ea-8540-b52ee09f3f50)
 
 2) User will enter issue attributes and bot will display list of users
-  Sample Input:
-  Sample Output:
- ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b)
-  - Title and milestone are mandatory  
+  Request Format: 
+  Sample Interaction:
+ ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
 
 3) User can assign this issue to his team member
   Sample Input:
   Sample Output:
   ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
 
-We have handled edge case:  
+We have also handled alternate flow:  
 If the issue does not have 
 ![case3 4](https://media.github.ncsu.edu/user/11865/files/48f88c00-12cf-11ea-92d2-ccb3d5841617)  
  
@@ -63,11 +63,8 @@ If issue does not have weight we have assumed it to be an easy issue
 
 # Exploratory Testing and Code Inspection
 
+
 # Bonus: Continuous Integration (CI) Server
 
-We created a jenkins server and build job that runs a build job for our bot, including running our integration tests.
-
-CI is ran on a hosted VM.
-
-Our CI works based on a build running from a triggered commit, and also shows build logs of integration tests.
+We created a jenkins server that runs a build job for our bot, including running our integration tests. CI is run on a hosted VM. Our CI works based on a build running from a triggered commit, and also shows build logs of integration tests. We are using poll SCM from Jenkins that polls from our github repo every 2mins for an update. It creates a build on update and lets us know whether the build was a success or failure.
 
