@@ -65,9 +65,5 @@ If issue does not have weight we have assumed it to be an easy issue
 
 # Bonus: Continuous Integration (CI) Server
 
-We created a jenkins server and build job that runs a build job for our bot, including running our integration tests.
-
-CI is ran on a hosted VM.
-
-Our CI works based on a build running from a triggered commit, and also shows build logs of integration tests.
+We created a jenkins server that runs a build job for our bot, including running our integration tests. CI is run on a hosted VM. Our CI works based on a build running from a triggered commit, and also shows build logs of integration tests. We are using poll SCM from Jenkins that polls from our github repo every 2mins for an update. It creates a build on update and lets us know whether the build was a success or failure.
 
