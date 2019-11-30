@@ -51,8 +51,8 @@ time.sleep(5)
 username = browser.find_element_by_id("loginId")
 password = browser.find_element_by_id("loginPassword")
 submit   = browser.find_element_by_id("loginButton")
-username.send_keys('sghanta')
-password.send_keys('Issuebot@11')
+username.send_keys('schippa')
+password.send_keys('Issuebot@team11')
 submit.submit()
 
 
