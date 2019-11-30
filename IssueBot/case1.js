@@ -105,10 +105,10 @@ async function getPriority(msg,client)
                 val_status = stat_in_progress;
                 label_status = 'In-Progress';
             }
-            else if (issue[i].labels[j].name.toUpperCase().match(/FIX/i))
+            else if (issue[i].labels[j].name.toUpperCase().match(/COMMITTED/i))
             {
                 val_status = stat_fix_committed;
-                label_status = 'Fix';
+                label_status = 'Committed';
             }
             else if (issue[i].labels[j].name.toUpperCase().match(/RESOLVED/i))
             {
@@ -202,12 +202,12 @@ async function getPriority(msg,client)
         else if( (milestoneDue-currtime) > (milestoneDue- new Date(issue[i].created_at).getTime())*val_status)
         {
           var val_timeDays = 100 - ((currtime - new Date(issue[i].created_at).getTime())/(24*60*60*1000));
-          //console.log("case 1 ",issue[i].title);
+          //console.log("case 1 ",issue[i].title,milestoneDue,currtime,new Date(issue[i].created_at).getTime(),val_status,milestoneDue-currtime,);
         }
         else
         {
           var val_timeDays= 100 - (((milestoneDue - new Date(issue[i].created_at).getTime())/(24*60*60*1000))*val_status);
-          //console.log("case 2 ", issue[i].title);
+          //console.log("case 2 ", issue[i].title,milestoneDue,currtime,new Date(issue[i].created_at).getTime(),val_status,milestoneDue-currtime,milest);
         }
 
         if(issue[i].assignee == null)
@@ -253,7 +253,7 @@ async function updateMilestone(msg,client)
 
   let issue = await github.getIssuesSince(owner,repo);
   let data = message.split("for");
-  var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
+  var issueid = message.split("for")[1].split(" ")[1].substr().toUpperCase();
   var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
 
   var labels = "";
@@ -299,7 +299,7 @@ async function updateLabels(msg,client)
   var message = JSON.parse(msg.data.post).message;
 
   let data = message.split("for");
-  var issueid = message.split("for")[1].split(" ")[1].substr(1).toUpperCase();
+  var issueid = message.split("for")[1].split(" ")[1].substr().toUpperCase();
   var labelval = message.split("for")[1].split("to ")[1].toUpperCase();
 
   console.log(issueid,labelval)
