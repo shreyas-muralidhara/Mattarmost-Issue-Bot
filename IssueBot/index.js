@@ -131,4 +131,4 @@ function hears(msg, text)
 {
     await main();
 
-//})()
+})()
