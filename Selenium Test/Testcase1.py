@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.options import Options
 from  selenium.common.exceptions import TimeoutException
 import time
 import os
-
+import sys
 def UseCase1(Flow):
         time.sleep(2)
         ###
@@ -14,7 +14,7 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "issues" in  (lastfield[len(lastfield)-1].text):
-            print ("Successfully displaying issues")
+            sys.stderr.write("Successfully displaying issues")
         else:
             sys.stderr.write("Error while displaying issues")
             exit(0)
