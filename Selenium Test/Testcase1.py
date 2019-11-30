@@ -16,7 +16,7 @@ def UseCase1(Flow):
         if "issues" in  (lastfield[len(lastfield)-1].text):
             print ("Successfully displaying issues")
         else:
-            print("Error while displaying issues")
+            sys.stderr.write("Error while displaying issues")
             exit(0)
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
@@ -26,9 +26,10 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "exist" in  (lastfield[len(lastfield)-1].text):
-            print ("Issue Id does not exist")
+            sys.stderr.write("Issue Id does not exist")
         else:
            # print("Error")
+            sys.stderr.write("Error occurred")
             exit(0)   
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
@@ -38,9 +39,9 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "valid" in  (lastfield[len(lastfield)-1].text):
-            print ("Not a valid Status")
+            sys.stderr.write("Not a valid Status")
         else:
-            print("Error")
+            print("Error" )
             exit(0)
 chrome_options = Options()
 chrome_options.add_argument("--headless")
