@@ -1,0 +1,58 @@
+- hosts: gcloud
+  gather_facts: no
+  vars:
+    - homePath: /home/BOT
+    - appPath: /CSC510-11/IssueBot 
+  vars_files:
+    - gitToken.yml 
+
+  pre_tasks:
+
+    - name: Install python to support ansible
+      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      become: yes
+
+    - name: Updating apt-get cache
+      command: apt-get update
+      become: yes
+
+    - name: Checking the latest git version
+      apt:
+         name: git 
+         state: present
+         update_cache: yes
+      become: yes
+
+  tasks:
+    - name: Install node js
+      apt:
+         name: nodejs
+         state: present
+         update_cache: yes
+      become: yes
+
+    - name: Install npm
+      apt:
+         name: npm
+         state: present
+         update_cache: yes
+      become: yes
+
+    - name: Install forever
+      command: npm install forever -g
+      become: yes
+      
+    - name: Cloning the git repository
+      git:
+         repo: https://{{ gittoken }}@github.ncsu.edu/csc510-fall2019/CSC510-11.git 
+         dest: CSC510-11/
+         clone: yes
+
+     
+    - name: Running npm install
+      command: npm install chdir=CSC510-11/IssueBot
+      become: yes
+
+    - name: Running the app
+      command: forever start {{ homePath}}{{ appPath }}/index.js
+      become: yes
