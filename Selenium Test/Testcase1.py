@@ -3,8 +3,9 @@ from selenium.webdriver.chrome.options import Options
 from  selenium.common.exceptions import TimeoutException
 import time
 import os
-
+import sys
 def UseCase1(Flow):
+        
         time.sleep(2)
         ###
         bottomText = browser.find_element_by_id("post_textbox")
@@ -14,7 +15,8 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "issues" in  (lastfield[len(lastfield)-1].text):
-            print ("Successfully displaying issues")
+            sys.stderr.write("Successfully displaying issues")
+          
         else:
             print("Error while displaying issues")
             exit(1)

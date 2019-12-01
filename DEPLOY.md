@@ -32,34 +32,32 @@ We have added the instructor and TAs as collaborators to our "CSC510-11Test" rep
   We have also handled edge cases during this Interaction:  
   If the issue owner tries to reassign the issue to an assignee who does not exist  
    ![usecase2 2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-904c-9973cff624b6)  
-  If the issue owner tries to reassign an invalid issue id  
+  If the issue owner tries to reassign an invalid issue id
+    
+  The functionality document for this UseCase has a detailed explaination for the backend logic implemented. 
   
 
 ### UseCase3
-1) The user can ask the bot to recomended assignees for a new issue
-  Request Format: Recommend assignees who can work on "< difficulty >" issue
-  Sample Input: Recommend assignees who can work on "easy" issue
-  Sample Output:   
+1) The user can ask the bot to recomended assignees for a new issue  
+  Request Format: Recommend assignees who can work on "< difficulty >" issue  
+  Sample Input: Recommend assignees who can work on "easy" issue  
+  Sample Output:  
   ![case3 1](https://media.github.ncsu.edu/user/11865/files/f61dd500-12cc-11ea-8540-b52ee09f3f50)
 
-2) User will enter issue attributes and bot will display list of users
-  Request Format: 
-  Sample Interaction:
+2) User will enter issue attributes and bot will display list of users    
+  Sample Interaction:  
  ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
 
-3) User can assign this issue to his team member
-  Sample Input:
-  Sample Output:
+3) User can assign this issue to his team member  
+  Sample Input: assign issue to <username>  
+  Sample Output:  
   ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
 
 We have also handled alternate flow:  
-If the issue does not have 
+Issue can be created even if it does not have label and body  
 ![case3 4](https://media.github.ncsu.edu/user/11865/files/48f88c00-12cf-11ea-92d2-ccb3d5841617)  
- 
-## Assumptions  
-Every issue should have a single assignee.  
-Github username and mattermost username should be same.  
-If issue does not have weight we have assumed it to be an easy issue
+
+The functionality document for this UseCase has a detailed explaination for the backend logic implemented.  
 
 # Exploratory Testing and Code Inspection
 
