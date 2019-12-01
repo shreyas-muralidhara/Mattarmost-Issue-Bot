@@ -60,24 +60,27 @@ Issue can be created even if it does not have label and body
 The functionality document for this UseCase has a detailed explaination for the backend logic implemented.  
 
 # Exploratory Testing and Code Inspection
-The implementation of all use-cases in IssueBot can be inspected in
+The implementation of all use-cases in IssueBot can be inspected as below:
 
-1.	index.js 
+1.	[index.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/index.js)  
 index.js is the core module of the IssueBot. It helps facilitate communication among the other components of the bot. It imports other use case modules.
 
-2.	github.js
+2.	[github.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/github.js)  
 github.js is used for making git API calls. 
 
-3.	case1.js
-It contains the logic for Use Case 1
+3.	[case1.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case1.js)  
+It contains the logic for Use Case 1.
 
-4.	case2.js
-It contains the logic for Use Case 2
+4.	[case2.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case2.js)  
+It contains the logic for Use Case 2.
 
-5.	case3.js
-It contains the logic for Use Case 3
+5.	[case3.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case3.js)  
+It contains the logic for Use Case 3.
 
 # Bonus: Continuous Integration (CI) Server
 
 We created a jenkins server that runs a build job for our bot, including running our integration tests. CI is run on a hosted VM. Our CI works based on a build running from a triggered commit, and also shows build logs of integration tests. We are using poll SCM from Jenkins that polls from our github repo every 2mins for an update. It creates a build on update and lets us know whether the build was a success or failure.
+
+Steps to login to the Jenkins Server:
+
 
