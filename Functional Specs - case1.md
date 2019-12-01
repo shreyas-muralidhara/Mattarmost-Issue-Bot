@@ -40,7 +40,7 @@ to next sprint. Weights ofr issue status, based on work required:
 * Status: Incomplete - 100%
 * Status: Committed - 25%
 * Status: Deferred - 100%
-* Status: Resolved - 100%
+* Status: Resolved - 0%
 
 **Assumption**: When status is not assigned while creating the issue, we assume that to be **Created** status by default. Bot indicates this 
 using the default tag.
