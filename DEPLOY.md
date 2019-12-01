@@ -3,7 +3,10 @@
 ## Deployment 
 Run the following Ansible playbook [deploysetup.yml] to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
 This playbook is responsible for the tasks related to setting up Issuebot. This installs all the required modules, clones the github respository and runs the bot.  
-The playbook also runs a shell script [environment.sh] which is responsible for setting the environment variables in the deployed environment.  
+The playbook also runs a shell script [environment.sh] which is responsible for setting the environment variables in the deployed environment.     
+The screencast for the deployment can be found below:  
+https://drive.google.com/open?id=1MFnmQ2q7TF-0MYC0t-JP3U7-TFDmqRb2  
+
 
 ## Acceptance Test 
  To initiate conversation with issuebot
@@ -79,7 +82,7 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
    ![usecase2 2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-904c-9973cff624b6)  
   If the issue owner tries to reassign an invalid issue id
     ![snip_new](https://media.github.ncsu.edu/user/10687/files/4c188700-144b-11ea-9a41-3dbff03d6792)  
-  The functionality document for this UseCase has a detailed explaination for the backend logic implemented. 
+  The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/UseCase2_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented. 
   
 
 ### UseCase3
@@ -102,7 +105,7 @@ We have also handled alternate flow:
 Issue can be created even if it does not have label and body  
 ![case3 4](https://media.github.ncsu.edu/user/11865/files/48f88c00-12cf-11ea-92d2-ccb3d5841617)  
 
-The functionality document for this UseCase has a detailed explaination for the backend logic implemented.  
+The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/UseCase3_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented.  
 
 # Exploratory Testing and Code Inspection
 The implementation of all use-cases in IssueBot can be inspected as below:
