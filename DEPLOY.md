@@ -91,22 +91,22 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
 
 ### UseCase3
 1) The user can ask the bot to recomended assignees for a new issue  
-  `Request Format: Recommend assignees who can work on < difficulty > issue` 
+  `Request Format: Recommend assignees who can work on < difficulty > issue`  
   `Input Request: Recommend assignees who can work on easy issue`  
   Expected Response:  
   ![snip](https://media.github.ncsu.edu/user/10687/files/55542480-1448-11ea-9321-63c0761ed798)
 
 2) User will enter issue attributes and bot will display list of users  
   Request Format: title: <Title of the Issue>  
-                  body: <Body of the Issue>  
+                  body: < Body of the Issue >  
                   labels: <labels seperated by comma eg: label1, label2, label3>  
-                  milestone: <milestone name>  
+                  milestone: < milestone name >  
   `Expected Response:` 
  
   ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
 
 3) User can assign this issue to his team member  
-  Request Format: assign issue to <username>
+  Request Format: assign issue to < username >  
   `Input Request: assign issue to schippa `  
   `Expected Response:`   
   ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
