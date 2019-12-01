@@ -64,6 +64,7 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
   Issue type for #50 should be changed from Idea to Feature. The priority score would be updated accordingly.  
   ![image](https://media.github.ncsu.edu/user/14762/files/bb35b180-1432-11ea-9dcc-e7fc47e3a674)
 
+The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Functional%20Specs%20-%20case1.md) for this UseCase has a detailed explaination for the backend logic implemented.
 
 ### UseCase2 
  1) The bot will display the list of stale issues to issue owners once every 24 hours.  
