@@ -1,12 +1,15 @@
 # Milestone: DEPLOYMENT
 
 ## Deployment 
-Run the following Ansible playbook [deploysetup.yml] to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
+Run the following Ansible playbook [deploysetup.yml](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/deploySetup.yml) to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
 This playbook is responsible for the tasks related to setting up Issuebot. This installs all the required modules, clones the github respository and runs the bot.  
-The playbook also runs a shell script [environment.sh] which is responsible for setting the environment variables in the deployed environment.     
+The playbook also runs a shell script [environment.sh](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/environment.sh) which is responsible for setting the environment variables in the deployed environment.     
 The screencast for the deployment can be found below:  
 https://drive.google.com/open?id=1MFnmQ2q7TF-0MYC0t-JP3U7-TFDmqRb2  
 
+The user should add his github token in the [gitToken.yml](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/gitToken.yml) before running the ansible playbook.  
+Before running the playbook from a remote host, an ssh key pair has to be created and the public key needs to be added to the Intstance.  
+The playbook can be run by the following command: sudo ansible-playbook deploySetup.yml 
 
 ## Acceptance Test 
  To initiate conversation with issuebot
@@ -64,17 +67,16 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
   Issue type for #50 should be changed from Idea to Feature. The priority score would be updated accordingly.  
   ![image](https://media.github.ncsu.edu/user/14762/files/bb35b180-1432-11ea-9dcc-e7fc47e3a674)
 
-The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Functional%20Specs%20-%20case1.md) for this UseCase has a detailed explaination for the backend logic implemented.
 
 ### UseCase2 
  1) The bot will display the list of stale issues to issue owners once every 24 hours.  
-  Sample Input: < no input >  
-  Sample Output:   
+  `Input Request: < no input >`  
+  `Expected Response:`     
   ![Use case2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-896e-fe0cb5583c71)    
 
  2) Now the user can reassign the issue to another assignee.  
-  Request Format: Reassign < issue id > to < username >  
-  Sample Input: Reassign 37 to sghanta  
+  `Input Request: Reassign < issue id > to < username >`  
+  `Expected Response: Reassign 37 to sghanta`  
   Sample Output: Assignee has been successfully changed  
   ![usecase2 1](https://media.github.ncsu.edu/user/11865/files/8c64c600-1128-11ea-95f2-3c6375643579)
 
@@ -88,18 +90,25 @@ The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/b
 
 ### UseCase3
 1) The user can ask the bot to recomended assignees for a new issue  
-  Request Format: Recommend assignees who can work on < difficulty > issue  
-  Sample Input: Recommend assignees who can work on easy issue  
-  Sample Output:  
+  `Request Format: Recommend assignees who can work on < difficulty > issue`  
+  `Input Request: Recommend assignees who can work on easy issue`    
+  Expected Response:  
   ![snip](https://media.github.ncsu.edu/user/10687/files/55542480-1448-11ea-9321-63c0761ed798)
 
-2) User will enter issue attributes and bot will display list of users    
-  Sample Interaction:  
- ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
+2) User will enter issue attributes and bot will display list of users
+  ```
+  Input Request: title: <Title of the Issue>  
+                 body: <Body of the Issue>  
+                 labels: <labels seperated by comma eg: label1, label2, label3>  
+                 milestone: <milestone name>
+  ```  
+  `Expected Response:` 
+ 
+  ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
 
 3) User can assign this issue to his team member  
-  Sample Input: assign issue to (username)  
-  Sample Output:  
+  `Input Request: assign issue to <username>`  
+  `Expected Response:`  
   ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
 
 We have also handled alternate flow:  
