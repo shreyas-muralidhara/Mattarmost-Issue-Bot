@@ -75,8 +75,9 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
   ![Use case2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-896e-fe0cb5583c71)    
 
  2) Now the user can reassign the issue to another assignee.  
-  `Input Request: Reassign < issue id > to < username >`  
-  `Expected Response: Reassign 37 to sghanta`  
+   Request Format: Reassign < issue id > to < username >   
+  `Input Request: Reassign 37 to sghanta`  
+  `Expected Response: `  
   Sample Output: Assignee has been successfully changed  
   ![usecase2 1](https://media.github.ncsu.edu/user/11865/files/8c64c600-1128-11ea-95f2-3c6375643579)
 
@@ -90,25 +91,24 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
 
 ### UseCase3
 1) The user can ask the bot to recomended assignees for a new issue  
-  `Request Format: Recommend assignees who can work on < difficulty > issue`  
-  `Input Request: Recommend assignees who can work on easy issue`    
+  `Request Format: Recommend assignees who can work on < difficulty > issue` 
+  `Input Request: Recommend assignees who can work on easy issue`  
   Expected Response:  
   ![snip](https://media.github.ncsu.edu/user/10687/files/55542480-1448-11ea-9321-63c0761ed798)
 
-2) User will enter issue attributes and bot will display list of users
-  ```
-  Input Request: title: <Title of the Issue>  
-                 body: <Body of the Issue>  
-                 labels: <labels seperated by comma eg: label1, label2, label3>  
-                 milestone: <milestone name>
-  ```  
+2) User will enter issue attributes and bot will display list of users  
+  Request Format: title: <Title of the Issue>  
+                  body: <Body of the Issue>  
+                  labels: <labels seperated by comma eg: label1, label2, label3>  
+                  milestone: <milestone name>  
   `Expected Response:` 
  
   ![case3 2](https://media.github.ncsu.edu/user/11865/files/f74f0200-12cc-11ea-9776-eb9ddb4a2e9b) 
 
 3) User can assign this issue to his team member  
-  `Input Request: assign issue to <username>`  
-  `Expected Response:`  
+  Request Format: assign issue to <username>
+  `Input Request: assign issue to schippa `  
+  `Expected Response:`   
   ![case3 3](https://media.github.ncsu.edu/user/11865/files/5cefbe00-12ce-11ea-9bad-6fed3441b8cc)
 
 We have also handled alternate flow:  
