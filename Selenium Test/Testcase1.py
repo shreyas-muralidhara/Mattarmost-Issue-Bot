@@ -16,8 +16,8 @@ def UseCase1(Flow):
         if "issues" in  (lastfield[len(lastfield)-1].text):
             print ("Successfully displaying issues")
         else:
-            sys.stderr.write("Error while displaying issues")
-            exit(0)
+            print("Error while displaying issues")
+            exit(1)
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
         bottomText.send_keys("update the priority for #999 to Normal")
@@ -26,11 +26,11 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "exist" in  (lastfield[len(lastfield)-1].text):
-            sys.stderr.write("Issue Id does not exist")
+            print ("Issue Id does not exist")
         else:
            # print("Error")
-            sys.stderr.write("Error occurred")
-            exit(0)   
+            print("Error occurred")
+            exit(1)   
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
         bottomText.send_keys("update status for #51 to implemented")
@@ -39,10 +39,10 @@ def UseCase1(Flow):
         lastfield=[]
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "valid" in  (lastfield[len(lastfield)-1].text):
-            sys.stderr.write("Not a valid Status")
+            print ("Not a valid Status")
         else:
-            print("Error" )
-            exit(0)
+            print("Error occured")
+            exit(1)
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 browser = webdriver.Chrome('/usr/bin/chromedriver',options=chrome_options)
@@ -52,7 +52,7 @@ time.sleep(5)
 username = browser.find_element_by_id("loginId")
 password = browser.find_element_by_id("loginPassword")
 submit   = browser.find_element_by_id("loginButton")
-username.send_keys('schippa')
+username.send_keys('sghanta')
 password.send_keys('Issuebot@team11')
 submit.submit()
 
