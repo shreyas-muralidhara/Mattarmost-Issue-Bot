@@ -13,7 +13,27 @@ The playbook also runs a shell script [environment.sh] which is responsible for 
 
 We have added the instructor and TAs as collaborators to our "CSC510-11Test" repo. This is currently linked to the mattermost account and any operations performed by the user will reflect in changes in this Repository.   
 
-### UseCase1           
+### UseCase1 - Priority ordering of issues based on labels and milestone
+1. Issue bot provides priority for all open issues. It handles the edge case - missing milestone, issue attribute labels by cosidering default values for deciding priority.  
+  `Input Request: display priority for all open issues`  
+  ```
+   Expected Response:   
+    To update issue attributes, request format - Update <attribute> for <issue ID/title> to <attribute value> 
+    Here are the issues: ... (followed by list of issues)
+  ```
+  ![image](https://media.github.ncsu.edu/user/14762/files/eb406e80-13b8-11ea-9ae0-21b9ceea4184)
+  
+  
+2. Accept the request to change priority, during life cycle of issue. Request uses attribute - **priority** in format of specified in step1.
+   `Input Request: Update priority for 40 to Normal`
+   `Expected Response: Priority is updated successfully.`
+   Priority of #40 should be changed from Low to Normal.
+  ![image](https://media.github.ncsu.edu/user/14762/files/7bcb7e80-13ba-11ea-9c7b-9ca00fbe535d)
+   
+3. Accept the request to change milestone, which allows in updating a sprint milestone. Request uses attribute - **milestone** in format specified in step1.
+   `Input Request: Update milestone for 22 to Sprint 2 - test`
+   `Expected Response: Milestone is updated successfully.`
+   Milestone of #51 should be changed from 
 
 
 
