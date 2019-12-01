@@ -5,6 +5,7 @@ import time
 import os
 import sys
 def UseCase1(Flow):
+        
         time.sleep(2)
         ###
         bottomText = browser.find_element_by_id("post_textbox")
@@ -18,6 +19,7 @@ def UseCase1(Flow):
         else:
             sys.stderr.write("Error while displaying issues")
             exit(0)
+        findText regexp: Successfully displaying issues   ######### Delete this line        
         time.sleep(1)
         bottomText = browser.find_element_by_id("post_textbox")
         bottomText.send_keys("update the priority for #999 to Normal")
