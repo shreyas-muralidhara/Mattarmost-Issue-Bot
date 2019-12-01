@@ -252,6 +252,7 @@ async function updateMilestone(msg,client)
 {
 
   let issue = await github.getIssuesSince(owner,repo);
+  var message = JSON.parse(msg.data.post).message;
   let data = message.split("for");
   var issueid = message.split("for")[1].split(" ")[1].substr().toUpperCase();
   var milestoneid = message.split("for")[1].split("to ")[1].toUpperCase();
