@@ -105,5 +105,6 @@ Steps to login to the Jenkins Server:
 1. Enter URL http://34.69.92.186:8080 in the browser.
 2. Enter username as admin and password as admin
 
-
+The link to screencast for Jenkins can be found below:
+https://drive.google.com/file/d/1JmSN1qUYNYDEbk4f10J1BMQ4uor4M5R5/view
 
