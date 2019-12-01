@@ -16,6 +16,7 @@ def UseCase1(Flow):
         lastfield = browser.find_elements_by_class_name("post-message__text")
         if "issues" in  (lastfield[len(lastfield)-1].text):
             sys.stderr.write("Successfully displaying issues")
+            exit(1)
         else:
             sys.stderr.write("Error while displaying issues")
             exit(0)
