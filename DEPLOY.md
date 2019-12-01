@@ -60,7 +60,22 @@ Issue can be created even if it does not have label and body
 The functionality document for this UseCase has a detailed explaination for the backend logic implemented.  
 
 # Exploratory Testing and Code Inspection
+The implementation of all use-cases in IssueBot can be inspected in
 
+1.	index.js 
+index.js is the core module of the IssueBot. It helps facilitate communication among the other components of the bot. It imports other use case modules.
+
+2.	github.js
+github.js is used for making git API calls. 
+
+3.	case1.js
+It contains the logic for Use Case 1
+
+4.	case2.js
+It contains the logic for Use Case 2
+
+5.	case3.js
+It contains the logic for Use Case 3
 
 # Bonus: Continuous Integration (CI) Server
 
