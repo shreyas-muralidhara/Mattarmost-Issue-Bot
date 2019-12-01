@@ -24,17 +24,42 @@ We have added the instructor and TAs as collaborators to our "CSC510-11Test" rep
   ![image](https://media.github.ncsu.edu/user/14762/files/eb406e80-13b8-11ea-9ae0-21b9ceea4184)
   
   
-2. Accept the request to change priority, during life cycle of issue. Request uses attribute - **priority** in format of specified in step1.
-   `Input Request: Update priority for 40 to Normal`
-   `Expected Response: Priority is updated successfully.`
-   Priority of #40 should be changed from Low to Normal.
+2. Accept the request to change priority, during life cycle of issue. Request uses attribute - **priority** in format of specified in step1.  
+   `Input Request: Update priority for 40 to Normal`  
+   `Expected Response: Priority is updated successfully.`  
+     
   ![image](https://media.github.ncsu.edu/user/14762/files/7bcb7e80-13ba-11ea-9c7b-9ca00fbe535d)
    
-3. Accept the request to change milestone, which allows in updating a sprint milestone. Request uses attribute - **milestone** in format specified in step1.
-   `Input Request: Update milestone for 22 to Sprint 2 - test`
-   `Expected Response: Milestone is updated successfully.`
-   Milestone of #51 should be changed from 
+3. Accept the request to change milestone, which allows in updating a sprint milestone. Request uses attribute - **milestone** in format specified in step1.  
+   `Input Request: Update milestone for 22 to Sprint 2 - test`  
+   `Expected Response: Milestone is updated successfully.`  
+     
+  ![image](https://media.github.ncsu.edu/user/14762/files/2e87f500-142c-11ea-988f-e2c2359cf2c9)
+  
+4. Accept the request to change status, as the issue progress during the life cycle. Request uses attribute - **status** in format specified in step1.
+   `Input Request: Update status for 51 to In-progress`  
+   `Expected Response: Status is updated successfully.`
+    
+ ![image](https://media.github.ncsu.edu/user/14762/files/7c9df800-142e-11ea-88d1-eb1d7b96b81d)
 
+5. Accept the request to change Issue type, from idea to feature. Request uses attribute - **Issue type** in the format specified in step1.
+   `Input Request: Update issue type for 50 to feature`  
+   `Expected Response: Issue Type is updated successfully.`
+    
+ ![image](https://media.github.ncsu.edu/user/14762/files/b02d5200-142f-11ea-9986-51056537a3cd)
+
+6. Display list of all open issues and verify the update to issue attributes performed in step2, step3, step4 and step5. bot will recompute thepriority score for updated issue attributes.  
+  `Input Request: display priority for all open issues`  
+  ```
+   Expected Response:   
+    To update issue attributes, request format - Update <attribute> for <issue ID/title> to <attribute value> 
+    Here are the issues: ... (followed by list of issues)
+  ```  
+  Priority of #40 should be changed from Low to Normal.  The priority score would be updated accordingly.  
+  Milestone of #22 should be changed from Sprint 2 to Sprint 2 - test. The priority score would be updated accordingly.  
+  Stataus of #51 should be changed from created to In-progress. The priority score would be updated accordingly.   
+  Issue type for #50 should be changed from Idea to Feature. The priority score would be updated accordingly.  
+  ![image](https://media.github.ncsu.edu/user/14762/files/bb35b180-1432-11ea-9dcc-e7fc47e3a674)
 
 
 ### UseCase2 
