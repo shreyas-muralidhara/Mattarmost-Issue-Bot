@@ -2,9 +2,9 @@ Problem Solved by Bot
 Limitations and Future Work
 
 ## Features
-The Issubot has three primary features:
--Priority ordering of Issues based on milestone and labels.
-# change Bot takes into consideration the time of creation,label attributes- type, priority and status. Then generates a priority rank for this set of attributes. It also allows frequent update of attributes, as issue progresses across various phrases of resolution.
+The Issubot has three primary features:  
+-Priority ordering of Issues based on milestone and labels.  
+#[shreyas]  
 -Escalate stale issues to other team members.  
 The Bot will notify the owner of the issue about stale issues by sending a direct message . The owner of the issue can then reassign the stale issue to some other team members.  
 -Agile planning with Github Issues.  
