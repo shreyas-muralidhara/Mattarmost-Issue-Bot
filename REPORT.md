@@ -3,11 +3,11 @@ Limitations and Future Work
 
 ## Features
 The Issubot has three primary features:  
--Priority ordering of Issues based on milestone and labels.  
-#[shreyas]  
--Escalate stale issues to other team members.  
+**Priority ordering of Issues based on milestone and labels.**  
+For all the open issues on repository, bot calculates the priority score for the issue. Priority score is based on the milestone assigned and issue labels - Priority, Status and Issue Type. With the progress of issue status the priority of the issue reduces.  
+**Escalate stale issues to other team members.**  
 The Bot will notify the owner of the issue about stale issues by sending a direct message . The owner of the issue can then reassign the stale issue to some other team members.  
--Agile planning with Github Issues.  
+**Agile planning with Github Issues.**  
 The Bot helps identify potential assignees for any new issue being created. To do this the bot takes into consideration the performance of each Team member and estimates based on their current workload if they would be able to complete the issue before its milestone.  
 
 ## UseCases
