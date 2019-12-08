@@ -36,6 +36,8 @@ For this milestone we have refined our UseCases further and also focused on Depl
 ## Limitations and Future Work
 There is always a chance of improvement in everything. Here is the list of enhancement which we can do:
 * Currently IssueBot will work with only fixed third party softwares like GitHub, Mattermost because we have not exposed a generic interface to integrate any kind of software management tools. This will make the IssueBot more useable because different companies use different software management tools. 
-* We can enhance the UseCae1 logic. Currently, IssueBot gives a priority list for all open issues. However we can just have top 5 priority open issues displayed. This will help to unclutter the information on the screen.
-* Similarly we can improve the UseCase3 task. Along with workload metric for every user, the bot can also calculate the efficiency of every user using some learning model. It will further assist in the distribution of the issues.
+* Functionality of priority ordering of issues can be enhanced - IssueBot gives a priority list for all open issues. However, we can just have top 5 priority open issues displayed, by each milestone. This will help to unclutter the information on the screen.
+* Similarly, functionality - for suggestion of assignee to new issue - can be enhanced to compute the efficiency of user based on learning model. Computed efficiency along with workload metric for every team memeber will suggest potential assignees effectively. It will further assist in the distribution of the issues.
+
+## Screencast of the project
 
