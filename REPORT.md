@@ -1,8 +1,6 @@
 ## The problem our bot solved
 Let us say we have an application that is being hosted and is open for a community of developers. In the initial phase, we can expect many inputs and a large number of issues to come in. It is not easy to keep a track of all of these issues. So that’s the reason we have our bot that helps in better management of the issues. If there are many open issues, the bot is able to display the priority score for each of them and thus the problem of which issue needs to be worked first is resolved. Another problem that the bot resolves is providing information of stale issues to the owner. Also the task of whom should the new issue be assigned to handled by the bot as it calculates a work-load metric for each user and then comes up a potential team member who can work on that, thus easing the task of distribution of issues. 
 
-Limitations and Future Work
-
 ## Features
 The Issubot has three primary features:  
 **Priority ordering of Issues based on milestone and labels.**  
@@ -13,11 +11,13 @@ The Bot will notify the owner of the issue about stale issues by sending a direc
 The Bot helps identify potential assignees for any new issue being created. To do this the bot takes into consideration the performance of each Team member and estimates based on their current workload if they would be able to complete the issue before its milestone.  
 
 ## UseCases
-
+UseCase1:
 ![](usecase1.gif)
 
+UseCase2:
 ![](usecase2.gif)
 
+UseCase3:
 ![](usecase3.gif)
 
 ## BOT development Process  
@@ -32,3 +32,10 @@ During this milestone we modified our UseCases again based on the Professors Fee
 For this Milestone we created a project board and distributed all tasks equally between the team members. We also started keeping a short note of our team meetings and integrated our bot with git to get a working implementation. During this milestone we also got the opportunity to try out pair programming and found it to be quite effective since it helped us in improving the quality of the code and eliminate the bugs/defects which might have got neglected had there been only one developer working on that task. The most challenging part during this milestone when we started interacting with actual data as the code would often break when edge cases were not handled.       
 ### Deploy Milestone
 For this milestone we have refined our UseCases further and also focused on Deploying our bot on a remote environment. We have written an ansible script to automate bot deployment on a VM running on Ubuntu either in Public Cloud (GCP) or localmachine. In this milestone we hadled all probable edge cases and also configured a Jenkins Server which would create a build on any commit in the git repository. 
+
+## Limitations and Future Work
+There is always a chance of improvement in everything. Here is the list of enhancement which we can do:
+* Currently IssueBot will work with only fixed third party softwares like GitHub, Mattermost because we have not exposed a generic interface to integrate any kind of software management tools. This will make the IssueBot more useable because different companies use different software management tools. 
+* We can enhance the UseCae1 logic. Currently, IssueBot gives a priority list for all open issues. However we can just have top 5 priority open issues displayed. This will help to unclutter the information on the screen.
+* Similarly we can improve the UseCase3 task. Along with workload metric for every user, the bot can also calculate the efficiency of every user using some learning model. It will further assist in the distribution of the issues.
+
