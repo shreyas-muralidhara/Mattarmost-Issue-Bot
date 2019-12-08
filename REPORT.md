@@ -12,6 +12,12 @@ The Bot helps identify potential assignees for any new issue being created. To d
 
 ## UseCases
 
+![](usecase1.gif)
+
+![](usecase2.gif)
+
+![](usecase3.gif)
+
 ## BOT development Process  
 
 ### Design Milestone  
