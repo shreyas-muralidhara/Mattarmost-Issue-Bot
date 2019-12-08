@@ -1,4 +1,6 @@
-Problem Solved by Bot
+## The problem our bot solved
+Let us say we have an application that is being hosted and is open for a community of developers. In the initial phase, we can expect many inputs and a large number of issues to come in. It is not easy to keep a track of all of these issues. So that’s the reason we have our bot that helps in better management of the issues. If there are many open issues, the bot is able to display the priority score for each of them and thus the problem of which issue needs to be worked first is resolved. Another problem that the bot resolves is providing information of stale issues to the owner. Also the task of whom should the new issue be assigned to handled by the bot as it calculates a work-load metric for each user and then comes up a potential team member who can work on that, thus easing the task of distribution of issues. 
+
 Limitations and Future Work
 
 ## Features
