@@ -3,7 +3,7 @@ Issue Bot implemented using Github RESTful APIs, hosted on mattarmost platform. 
 
 Milestone:
 ---------
-[MILESTONE: DESIGN](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/DESIGN.md) 
+[MILESTONE: DESIGN](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/DESIGN.md)  
 [MILESTONE: BOT](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/BOT.md)  
 [MILESTONE: PROCESS](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/PROCESS.md)  
 [MILESTONE: DEPLOYMENT](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot//blob/master/DEPLOY.md)  
