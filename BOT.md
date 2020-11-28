@@ -98,13 +98,13 @@ We have used Selenium to verify that our bot is returning the correct response b
   
   
 USECASE1:Priority ordering of Issues based on milestone and labels  
-![UseCase1](https://media.github.ncsu.edu/user/10687/files/7192a680-f517-11e9-952e-3db309e5fc47)  
+![UseCase1](https://user-images.githubusercontent.com/39837416/100526873-3a230e80-319b-11eb-8244-aae717550b8b.gif)  
 
 USECASE2:Escalate stale issues to other team members  
-![UseCase2](https://media.github.ncsu.edu/user/10687/files/77888780-f517-11e9-9c11-5f70544fd29c)  
+![UseCase2](https://user-images.githubusercontent.com/39837416/100526888-6179db80-319b-11eb-968a-9f74f904c216.gif)  
 
 USECASE3:Agile planning with Github Issues  
-![UseCase3](https://media.github.ncsu.edu/user/10687/files/7ce5d200-f517-11e9-8dd2-3588774b7391)  
+![UseCase3](https://user-images.githubusercontent.com/39837416/100526894-70608e00-319b-11eb-8d87-d6e996bdf434.gif)  
 
 ### SCREENCAST
 [USECASE1](https://drive.google.com/file/d/1ZKNMRcHRiIrCATpUvkQmUzyxqFBMIG4Q/view?usp=sharing)-**Priority ordering of Issues based on milestone and labels.**  
