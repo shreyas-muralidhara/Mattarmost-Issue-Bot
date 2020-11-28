@@ -1,13 +1,13 @@
 # Milestone: DEPLOYMENT
 
 ## Deployment 
-Run the following Ansible playbook [deploysetup.yml](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/deploySetup.yml) to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
+Run the following Ansible playbook [deploysetup.yml](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/Deployment%20Scripts/deploySetup.yml) to deploy the bot on a VM with Ubuntu OS either in local machine or Public Cloud. 
 This playbook is responsible for the tasks related to setting up Issuebot. This installs all the required modules, clones the github respository and runs the bot.  
-The playbook also runs a shell script [environment.sh](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/environment.sh) which is responsible for setting the environment variables in the deployed environment.     
+The playbook also runs a shell script [environment.sh](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/Deployment%20Scripts/environment.sh) which is responsible for setting the environment variables in the deployed environment.     
 The screencast for the deployment can be found below:  
 https://drive.google.com/open?id=1MFnmQ2q7TF-0MYC0t-JP3U7-TFDmqRb2  
 
-The user should add his github token in the [gitToken.yml](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/Deployment%20Scripts/gitToken.yml) before running the ansible playbook.  
+The user should add his github token in the [gitToken.yml](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/Deployment%20Scripts/gitToken.yml) before running the ansible playbook.  
 Before running the playbook from a remote host, an ssh key pair has to be created and the public key needs to be added to the Intstance.  
 The playbook can be run by the following command: sudo ansible-playbook deploySetup.yml 
 
@@ -65,8 +65,8 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
   Milestone of #22 should be changed from Sprint 2 to Sprint 2 - test. The priority score would be updated accordingly.  
   Stataus of #51 should be changed from created to In-progress. The priority score would be updated accordingly.   
   Issue type for #50 should be changed from Idea to Feature. The priority score would be updated accordingly.  
-  ![image](https://media.github.ncsu.edu/user/14762/files/bb35b180-1432-11ea-9dcc-e7fc47e3a674)
-
+  ![image](https://media.github.ncsu.edu/user/14762/files/bb35b180-1432-11ea-9dcc-e7fc47e3a674)  
+The [functionality document](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/Functional%20Specs%20-%20case1.md) for this UseCase has a detailed explaination for the backend logic implemented.
 
 ### UseCase2 
  1) The bot will display the list of stale issues to issue owners once every 24 hours.  
@@ -86,7 +86,7 @@ We have added the instructor and TAs as collaborators to our "Process-Milestone"
    ![usecase2 2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-904c-9973cff624b6)  
   If the issue owner tries to reassign an invalid issue id
     ![snip_new](https://media.github.ncsu.edu/user/10687/files/4c188700-144b-11ea-9a41-3dbff03d6792)  
-  The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/UseCase2_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented. 
+  The [functionality document](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/UseCase2_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented. 
   
 
 ### UseCase3
@@ -115,24 +115,24 @@ We have also handled alternate flow:
 Issue can be created even if it does not have label and body  
 ![case3 4](https://media.github.ncsu.edu/user/11865/files/48f88c00-12cf-11ea-92d2-ccb3d5841617)  
 
-The [functionality document](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/UseCase3_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented.  
+The [functionality document](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/UseCase3_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented.  
 
 # Exploratory Testing and Code Inspection
 The implementation of all use-cases in IssueBot can be inspected as below:
 
-1.	[index.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/index.js)  
+1.	[index.js](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/IssueBot/index.js)  
 index.js is the core module of the IssueBot. It helps facilitate communication among the other components of the bot. It imports other use case modules.
 
-2.	[github.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/github.js)  
+2.	[github.js](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/IssueBot/github.js)  
 github.js has all the functions used for making git API calls. 
 
-3.	[case1.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case1.js)  
+3.	[case1.js](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/IssueBot/case1.js)  
 It contains the logic for Use Case 1.
 
-4.	[case2.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case2.js)  
+4.	[case2.js](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/IssueBot/case2.js)  
 It contains the logic for Use Case 2.
 
-5.	[case3.js](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/IssueBot/case3.js)  
+5.	[case3.js](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/IssueBot/case3.js)  
 It contains the logic for Use Case 3.
 
 # Bonus: Continuous Integration (CI) Server
