@@ -1,17 +1,17 @@
 # Issue Bot - No Issues with Issue Bot 
-Our project is an IssueBot which is hosted on Mattermost platform. It intends to assist the users in issue maintenance adding ease to their work in accomplishing their goal.
+Issue Bot implemented using Github RESTful APIs, hosted on mattarmost platform. It intends to assist the users in issue maintenance adding ease to their work in accomplishing their goal.
 
 Milestone:
 ---------
-[MILESTONE: DESIGN](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/DESIGN.md)  
-[MILESTONE: BOT](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/BOT.md)  
-[MILESTONE: PROCESS](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/PROCESS.md)  
-[MILESTONE: DEPLOYMENT](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/DEPLOY.md)  
-[MILESTONE: REPORT](https://github.ncsu.edu/csc510-fall2019/CSC510-11/blob/master/REPORT.md)
+[MILESTONE: DESIGN](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/DESIGN.md) 
+[MILESTONE: BOT](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/BOT.md)  
+[MILESTONE: PROCESS](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/PROCESS.md)  
+[MILESTONE: DEPLOYMENT](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot//blob/master/DEPLOY.md)  
+[MILESTONE: REPORT](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/REPORT.md)
 
 Team Members:
 -----------------
-* Shreyas Chikkballapur Muralidhara [schikkb]  
+* Shreyas Muralidhara [schikkb]  
 * Sai Manideep Chippa [schippa] 
 * Sandeep ghanta [sghanta]  
 * Vaibhav Nagvekar [vpnagvek] 
