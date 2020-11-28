@@ -84,7 +84,7 @@ The [functionality document](https://github.com/shreyas-muralidhara/Mattarmost-I
   We have also handled edge cases during this Interaction:  
   If the issue owner tries to reassign the issue to an assignee who does not exist  
    ![usecase2 2](https://media.github.ncsu.edu/user/11865/files/91297a00-1128-11ea-904c-9973cff624b6)  
-  If the issue owner tries to reassign an invalid issue id
+  If the issue owner tries to reassign an invalid issue id  
     ![snip_new](https://media.github.ncsu.edu/user/10687/files/4c188700-144b-11ea-9a41-3dbff03d6792)  
   The [functionality document](https://github.com/shreyas-muralidhara/Mattarmost-Issue-Bot/blob/master/UseCase2_functionality.md) for this UseCase has a detailed explaination for the backend logic implemented. 
   
